@@ -19,5 +19,7 @@ public class Ad {
     private String address;
     @ManyToOne
     private User user;
+    @ManyToOne
+    private Category category;
 
 }

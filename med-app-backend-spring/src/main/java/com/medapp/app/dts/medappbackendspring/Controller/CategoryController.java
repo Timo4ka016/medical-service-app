@@ -23,6 +23,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('USER_ADMIN')")
     public void updateCategory(
             @RequestParam Long id,
             @RequestBody CreateUpdateCategoryDto createUpdateCategoryDto
@@ -31,6 +32,7 @@ public class CategoryController {
     }
 
     @GetMapping("/get")
+    @PreAuthorize("hasAuthority('USER_ADMIN')")
     public List<Category> findCategory(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name
@@ -39,6 +41,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('USER_ADMIN')")
     public void deleteCategory(
             @RequestParam Long id
     ) {

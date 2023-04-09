@@ -1,5 +1,6 @@
 package com.medapp.app.dts.medappbackendspring.Dto;
 
+import com.medapp.app.dts.medappbackendspring.Entity.Category;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
 import lombok.*;
 
@@ -14,4 +15,5 @@ public class CreateAdDto {
     private Long price;
     private String address;
     private User user;
+    private Category category;
 }

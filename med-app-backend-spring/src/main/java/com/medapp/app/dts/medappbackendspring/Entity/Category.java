@@ -14,10 +14,13 @@ import java.util.Set;
 @Builder
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private Set<User> users;
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private Set<Ad> ads;
 }

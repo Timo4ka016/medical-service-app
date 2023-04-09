@@ -1,9 +1,9 @@
 package com.medapp.app.dts.medappbackendspring.Service;
 
-import com.medapp.app.dts.medappbackendspring.Dto.CreateAdDto;
 import com.medapp.app.dts.medappbackendspring.Dto.DoctorDto;
+import com.medapp.app.dts.medappbackendspring.Dto.DoctorMyProfileInfoDto;
 import com.medapp.app.dts.medappbackendspring.Dto.UpdateDoctorDto;
-import com.medapp.app.dts.medappbackendspring.Entity.Ad;
+import com.medapp.app.dts.medappbackendspring.Entity.NotFoundException;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
 import com.medapp.app.dts.medappbackendspring.Enum.Role;
 import com.medapp.app.dts.medappbackendspring.Repository.AdRepository;
@@ -70,4 +70,9 @@ public class DoctorService {
         return users.stream().map(user -> mapper.map(user, DoctorDto.class)).collect(Collectors.toList());
     }
 
+    public DoctorMyProfileInfoDto profile(User user) {
+        User myUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Доктор не найден"));
+        return mapper.map(myUser, DoctorMyProfileInfoDto.class);
+    }
 }

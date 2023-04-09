@@ -22,12 +22,6 @@ public class AuthController {
         return ResponseEntity.ok(authService.registerClient(request));
     }
 
-    @PostMapping("/register-doctor")
-    public ResponseEntity<ReturnedTokenDto> registerDoctor(
-            @RequestBody RegisterDoctorDto request
-    ) {
-        return ResponseEntity.ok(authService.registerDoctor(request));
-    }
 
     @PostMapping("/register-admin")
     public ResponseEntity<ReturnedTokenDto> registerAdmin(
@@ -36,9 +30,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.registerAdmin(request));
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<ReturnedTokenDto> authenticate(
             @RequestBody AuthenticationDto request
+
     ) {
         return ResponseEntity.ok(authService.authenticate(request));
     }

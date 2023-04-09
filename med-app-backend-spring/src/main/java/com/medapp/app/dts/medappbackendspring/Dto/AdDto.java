@@ -1,5 +1,6 @@
 package com.medapp.app.dts.medappbackendspring.Dto;
 
+import com.medapp.app.dts.medappbackendspring.Entity.Category;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,6 @@ public class AdDto {
     private String description;
     private Long price;
     private String address;
+    private Category category;
 
 }
