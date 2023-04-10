@@ -1,7 +1,9 @@
 package com.medapp.app.dts.medappbackendspring.Controller;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
+import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
+import com.medapp.app.dts.medappbackendspring.Enum.Role;
 import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
 import com.medapp.app.dts.medappbackendspring.Service.AdService;
 import com.medapp.app.dts.medappbackendspring.Service.AuthService;
@@ -14,7 +16,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/doctor")
@@ -32,12 +37,7 @@ public class DoctorController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/create")
-    public ResponseEntity<ReturnedTokenDto> registerDoctor(
-            @RequestBody RegisterDoctorDto request
-    ) {
-        return ResponseEntity.ok(authService.registerDoctor(request));
-    }
+
 
     @GetMapping("/profile")
     public ResponseEntity<DoctorMyProfileInfoDto> profile(
@@ -111,5 +111,14 @@ public class DoctorController {
             @RequestBody List<Long> categoryIds) {
         categoryService.removeCategoryFromDoctor(user, categoryIds);
     }
+
+//    @GetMapping("/feedbacks")
+//    public ResponseEntity<List<Feedback>> getMyFeedbacks(
+//            @AuthenticationPrincipal User user
+//    ) {
+//        List<Feedback> feedbacks = user.getReceivedFeedbacks();
+//        List<Feedback> feedbackList = new ArrayList<>(feedbacks);
+//        return ResponseEntity.ok(feedbackList);
+//    }
 
 }

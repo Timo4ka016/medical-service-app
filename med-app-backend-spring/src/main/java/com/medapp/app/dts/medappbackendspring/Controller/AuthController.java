@@ -15,15 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/register-client")
+    @PostMapping("/create-client")
     public ResponseEntity<ReturnedTokenDto> registerClient(
             @RequestBody RegisterClientDto request
     ) {
         return ResponseEntity.ok(authService.registerClient(request));
     }
 
+    @PostMapping("/create-doctor")
+    public ResponseEntity<ReturnedTokenDto> registerDoctor(
+            @RequestBody RegisterDoctorDto request
+    ) {
+        return ResponseEntity.ok(authService.registerDoctor(request));
+    }
 
-    @PostMapping("/register-admin")
+    @PostMapping("/create-admin")
     public ResponseEntity<ReturnedTokenDto> registerAdmin(
             @RequestBody RegisterAdminDto request
     ) {

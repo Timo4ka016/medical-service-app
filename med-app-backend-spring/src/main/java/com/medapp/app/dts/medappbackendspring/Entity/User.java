@@ -44,6 +44,12 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
+    @OneToMany(mappedBy = "client")
+    private List<Feedback> givenFeedbacks;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<Feedback> receivedFeedbacks;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
