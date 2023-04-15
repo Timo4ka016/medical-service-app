@@ -29,6 +29,8 @@ public class User implements UserDetails {
     private String lastname;
     private String description;
     private String phoneNumber;
+    private Double rating;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

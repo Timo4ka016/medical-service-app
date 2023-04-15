@@ -3,12 +3,8 @@ package com.medapp.app.dts.medappbackendspring.Controller;
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
-import com.medapp.app.dts.medappbackendspring.Enum.Role;
 import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
-import com.medapp.app.dts.medappbackendspring.Service.AdService;
-import com.medapp.app.dts.medappbackendspring.Service.AuthService;
-import com.medapp.app.dts.medappbackendspring.Service.CategoryService;
-import com.medapp.app.dts.medappbackendspring.Service.DoctorService;
+import com.medapp.app.dts.medappbackendspring.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/doctor")
@@ -36,14 +29,15 @@ public class DoctorController {
     private AdService adService;
     @Autowired
     private CategoryService categoryService;
-
+    @Autowired
+    private FeedbackService feedbackService;
 
 
     @GetMapping("/profile")
-    public ResponseEntity<DoctorMyProfileInfoDto> profile(
+    public ResponseEntity<ProfileInfoForDoctor> profile(
             @AuthenticationPrincipal User user
     ) {
-        return ResponseEntity.ok(doctorService.profile(user));
+        return ResponseEntity.ok(doctorService.profileForDoctor(user));
     }
 
     @PutMapping("/profile/update")
@@ -88,16 +82,6 @@ public class DoctorController {
         adService.deleteAd(user, adId);
     }
 
-
-    @GetMapping("/get-doctor")
-    public ResponseEntity<List<DoctorDto>> getDoctorInfo(
-            @RequestParam(required = false) Long id,
-            @RequestParam(required = false) String firstname,
-            @RequestParam(required = false) String lastname
-    ) {
-        return ResponseEntity.ok(doctorService.getDoctorInfo(id, firstname, lastname));
-    }
-
     @PutMapping("/category/add")
     public void addCategoryToDoctor(
             @AuthenticationPrincipal User user,
@@ -112,13 +96,12 @@ public class DoctorController {
         categoryService.removeCategoryFromDoctor(user, categoryIds);
     }
 
-//    @GetMapping("/feedbacks")
-//    public ResponseEntity<List<Feedback>> getMyFeedbacks(
-//            @AuthenticationPrincipal User user
-//    ) {
-//        List<Feedback> feedbacks = user.getReceivedFeedbacks();
-//        List<Feedback> feedbackList = new ArrayList<>(feedbacks);
-//        return ResponseEntity.ok(feedbackList);
-//    }
+    @GetMapping("/feedbacks")
+    public ResponseEntity<List<Feedback>> getMyFeedbacks(
+            @AuthenticationPrincipal User user,
+            @RequestParam(required = false) Double rating
+    ) {
+        return ResponseEntity.ok(feedbackService.getMyFeedback(user, rating));
+    }
 
 }

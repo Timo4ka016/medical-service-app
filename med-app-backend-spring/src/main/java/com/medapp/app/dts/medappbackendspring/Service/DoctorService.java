@@ -1,7 +1,8 @@
 package com.medapp.app.dts.medappbackendspring.Service;
 
-import com.medapp.app.dts.medappbackendspring.Dto.DoctorDto;
-import com.medapp.app.dts.medappbackendspring.Dto.DoctorMyProfileInfoDto;
+import com.medapp.app.dts.medappbackendspring.Dto.ProfileInfoForDoctor;
+import com.medapp.app.dts.medappbackendspring.Dto.ProfileInfoForUser;
+import com.medapp.app.dts.medappbackendspring.Dto.SearchDoctorResponse;
 import com.medapp.app.dts.medappbackendspring.Dto.UpdateDoctorDto;
 import com.medapp.app.dts.medappbackendspring.Entity.NotFoundException;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
@@ -49,7 +50,7 @@ public class DoctorService {
         userRepository.save(existingUser);
     }
 
-    public List<DoctorDto> getDoctorInfo(Long id, String firstname, String lastname) {
+    public List<SearchDoctorResponse> searchDoctors(Long id, String firstname, String lastname) {
         Specification<User> spec = Specification.where(null);
         if (id != null)
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
@@ -67,12 +68,19 @@ public class DoctorService {
         });
 
         List<User> users = userRepository.findAll(spec);
-        return users.stream().map(user -> mapper.map(user, DoctorDto.class)).collect(Collectors.toList());
+        return users.stream().map(user -> mapper.map(user, SearchDoctorResponse.class)).collect(Collectors.toList());
     }
 
-    public DoctorMyProfileInfoDto profile(User user) {
+    public ProfileInfoForDoctor profileForDoctor(User user) {
         User myUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new NotFoundException("Доктор не найден"));
-        return mapper.map(myUser, DoctorMyProfileInfoDto.class);
+        return mapper.map(myUser, ProfileInfoForDoctor.class);
+    }
+
+    public ProfileInfoForUser profileForUser(Long doctorId) {
+        User searchedDoctor = userRepository.findById(doctorId)
+                .orElseThrow(() -> new NotFoundException("Доктор не найден"));
+
+        return mapper.map(searchedDoctor, ProfileInfoForUser.class);
     }
 }
