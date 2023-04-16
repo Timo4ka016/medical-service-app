@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileInfoForDoctor {
+public class ProfileInfoForClient {
     private String firstname;
     private String lastname;
     private String phoneNumber;
-    private Double rating;
+
 }

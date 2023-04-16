@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileInfoForUser {
+public class DoctorProfileInfoForClient {
     private Long id;
     private String firstname;
     private String lastname;

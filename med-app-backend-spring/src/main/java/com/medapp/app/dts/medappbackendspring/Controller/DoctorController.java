@@ -19,18 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @PreAuthorize("hasAuthority('USER_DOCTOR')")
 public class DoctorController {
-    private final AuthService authService;
-
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private DoctorService doctorService;
-    @Autowired
-    private AdService adService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private FeedbackService feedbackService;
 
 
     @GetMapping("/profile")
@@ -48,13 +38,27 @@ public class DoctorController {
         doctorService.updateDoctor(user, request);
     }
 
+    @PutMapping("/category/add")
+    public void addCategoryToDoctor(
+            @AuthenticationPrincipal User user,
+            @RequestBody List<Long> categoryIds) {
+        doctorService.addCategoryToDoctor(user, categoryIds);
+    }
+
+    @PutMapping("/category/remove")
+    public void removeCategoryToDoctor(
+            @AuthenticationPrincipal User user,
+            @RequestBody List<Long> categoryIds) {
+        doctorService.removeCategoryFromDoctor(user, categoryIds);
+    }
+
     @PostMapping("/ads/ad/create")
     public void createAd(
             @AuthenticationPrincipal User user,
             @RequestParam Long categoryId,
             @RequestBody CreateAdDto createAdDto
     ) {
-        adService.createAd(user, categoryId, createAdDto);
+        doctorService.createAd(user, categoryId, createAdDto);
     }
 
     @PutMapping("/ads/ad/update")
@@ -64,14 +68,14 @@ public class DoctorController {
             @RequestParam Long categoryId,
             @RequestBody UpdateAdDto updateAdDto
     ) {
-        adService.updateAd(user, adId, categoryId, updateAdDto);
+        doctorService.updateAd(user, adId, categoryId, updateAdDto);
     }
 
     @GetMapping("/ads")
     public ResponseEntity<List<AdDto>> getDoctorAds(
             @AuthenticationPrincipal User user
     ) {
-        return ResponseEntity.ok(adService.doctorAds(user));
+        return ResponseEntity.ok(doctorService.doctorAds(user));
     }
 
     @DeleteMapping("/ads/ad/delete")
@@ -79,21 +83,7 @@ public class DoctorController {
             @AuthenticationPrincipal User user,
             @RequestParam Long adId
     ) {
-        adService.deleteAd(user, adId);
-    }
-
-    @PutMapping("/category/add")
-    public void addCategoryToDoctor(
-            @AuthenticationPrincipal User user,
-            @RequestBody List<Long> categoryIds) {
-        categoryService.addCategoryToDoctor(user, categoryIds);
-    }
-
-    @PutMapping("/category/remove")
-    public void removeCategoryToDoctor(
-            @AuthenticationPrincipal User user,
-            @RequestBody List<Long> categoryIds) {
-        categoryService.removeCategoryFromDoctor(user, categoryIds);
+        doctorService.deleteAd(user, adId);
     }
 
     @GetMapping("/feedbacks")
@@ -101,7 +91,7 @@ public class DoctorController {
             @AuthenticationPrincipal User user,
             @RequestParam(required = false) Double rating
     ) {
-        return ResponseEntity.ok(feedbackService.getMyFeedback(user, rating));
+        return ResponseEntity.ok(doctorService.getMyFeedback(user, rating));
     }
 
 }
