@@ -67,9 +67,11 @@ public class ClientController {
     public ResponseEntity<List<SearchDoctorResponse>> searchDoctors(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String firstname,
-            @RequestParam(required = false) String lastname
+            @RequestParam(required = false) String lastname,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double rating
     ) {
-        return ResponseEntity.ok(clientService.searchDoctors(id, firstname, lastname));
+        return ResponseEntity.ok(clientService.searchDoctors(id, firstname, lastname, category, rating));
     }
 
     @GetMapping("/selected-doctor")
@@ -77,6 +79,14 @@ public class ClientController {
             @RequestParam Long doctorId
     ) {
         return ResponseEntity.ok(clientService.doctorProfileInfoForUser(doctorId));
+    }
+
+    @PutMapping("/city/add")
+    public void addCityToDoctor(
+            @AuthenticationPrincipal User user,
+            @RequestParam Long cityId
+    ) {
+        clientService.addCityToClient(user, cityId);
     }
 
 }

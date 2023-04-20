@@ -2,6 +2,7 @@ package com.medapp.app.dts.medappbackendspring.Controller;
 
 import com.medapp.app.dts.medappbackendspring.Dto.CreateUpdateCategoryDto;
 import com.medapp.app.dts.medappbackendspring.Entity.Category;
+import com.medapp.app.dts.medappbackendspring.Entity.City;
 import com.medapp.app.dts.medappbackendspring.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,6 +46,33 @@ public class AdminController {
             @RequestParam Long id
     ) {
         adminService.deleteCategory(id);
+    }
+
+    @PostMapping("/city/create")
+    public void createCity(@RequestBody City city) {
+        adminService.createCity(city);
+    }
+
+    @PutMapping("/city/update")
+    public void updateCity(
+            @RequestParam Long id,
+            @RequestBody City city) {
+        adminService.updateCity(id, city);
+    }
+
+    @GetMapping("/city/get")
+    public List<City> findCity(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name
+    ) {
+        return adminService.getCity(id, name);
+    }
+
+    @DeleteMapping("/city/delete")
+    public void deleteCity(
+            @RequestParam Long id
+    ) {
+        adminService.deleteCity(id);
     }
 
 }

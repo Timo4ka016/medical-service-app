@@ -94,4 +94,12 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.getMyFeedback(user, rating));
     }
 
+    @PutMapping("/city/add")
+    public void addCityToDoctor(
+            @AuthenticationPrincipal User user,
+            @RequestParam Long cityId
+    ) {
+        doctorService.addCityToDoctor(user, cityId);
+    }
+
 }

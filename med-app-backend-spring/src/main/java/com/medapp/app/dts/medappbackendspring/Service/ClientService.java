@@ -1,15 +1,14 @@
 package com.medapp.app.dts.medappbackendspring.Service;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
-import com.medapp.app.dts.medappbackendspring.Entity.Ad;
-import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
-import com.medapp.app.dts.medappbackendspring.Entity.NotFoundException;
-import com.medapp.app.dts.medappbackendspring.Entity.User;
+import com.medapp.app.dts.medappbackendspring.Entity.*;
 import com.medapp.app.dts.medappbackendspring.Enum.Role;
 import com.medapp.app.dts.medappbackendspring.Repository.AdRepository;
+import com.medapp.app.dts.medappbackendspring.Repository.CityRepository;
 import com.medapp.app.dts.medappbackendspring.Repository.FeedbackRepository;
 import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
+import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +30,13 @@ public class ClientService {
     private AdRepository adRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private CityRepository cityRepository;
     private final PasswordEncoder passwordEncoder;
 
 
     /*
-     *  Начало сервиса профиля для клиента
+     *  Начало сервиса профиля
      * */
 
     public ProfileInfoForClient profileForClient(User user) {
@@ -62,14 +63,14 @@ public class ClientService {
     }
 
     /*
-     *  Конец сервиса профиля для клиента
+     *  Конец сервиса профиля
      * */
 
     /*
-     *  Начало сервиса взаимодействия с доктором для клиента
+     *  Начало сервиса взаимодействия с доктором
      * */
 
-    public List<SearchDoctorResponse> searchDoctors(Long id, String firstname, String lastname) {
+    public List<SearchDoctorResponse> searchDoctors(Long id, String firstname, String lastname, String category, Double rating) {
         Specification<User> spec = Specification.where(null);
         if (id != null)
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("id"), id));
@@ -77,6 +78,14 @@ public class ClientService {
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("firstname"), firstname));
         if (lastname != null)
             spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("lastname"), lastname));
+        if (category != null)
+            spec = spec.and((root, query, criteriaBuilder) -> {
+                Join<User, Category> userCategoryJoin = root.join("categories");
+                return userCategoryJoin.get("name").in(category);
+            });
+        if (rating != null)
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("rating"), rating));
+
 
         spec = spec.and((root, query, criteriaBuilder) -> {
             return criteriaBuilder.and(
@@ -98,11 +107,11 @@ public class ClientService {
     }
 
     /*
-     *  Конец сервиса взаимодействия с доктором для клиента
+     *  Конец сервиса взаимодействия с доктором
      * */
 
     /*
-     *  Начало сервиса отзывов для клиента
+     *  Начало сервиса отзывов
      * */
 
     public void addFeedback(User user, Long adId, Feedback feedback) {
@@ -173,7 +182,24 @@ public class ClientService {
     }
 
     /*
-     *  Конец сервиса отзывов для клиента
+     *  Конец сервиса отзывов
+     * */
+
+    /*
+     *  Начало сервиса города
+     * */
+
+    public void addCityToClient(User user, Long cityId) {
+        User myUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Клиент не найден"));
+        City myCity = cityRepository.findById(cityId)
+                .orElseThrow(() -> new NotFoundException("Город не найден"));
+        myUser.setCity(myCity);
+        userRepository.save(myUser);
+    }
+
+    /*
+     *  Конец сервиса города
      * */
 
 }

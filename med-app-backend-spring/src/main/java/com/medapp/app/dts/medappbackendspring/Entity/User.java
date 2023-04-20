@@ -52,6 +52,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "doctor")
     private List<Feedback> receivedFeedbacks;
 
+    @ManyToOne
+    private City city;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

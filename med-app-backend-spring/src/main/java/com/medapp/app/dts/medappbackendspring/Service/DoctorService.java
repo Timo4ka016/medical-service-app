@@ -3,10 +3,7 @@ package com.medapp.app.dts.medappbackendspring.Service;
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.*;
 import com.medapp.app.dts.medappbackendspring.Enum.Role;
-import com.medapp.app.dts.medappbackendspring.Repository.AdRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.CategoryRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.FeedbackRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
+import com.medapp.app.dts.medappbackendspring.Repository.*;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -32,12 +29,14 @@ public class DoctorService {
     private CategoryRepository categoryRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private CityRepository cityRepository;
 
     private final PasswordEncoder passwordEncoder;
     private static final ModelMapper mapper = new ModelMapper();
 
     /*
-     *  Начало сервиса профиля для доктора
+     *  Начало сервиса профиля
      * */
 
     public ProfileInfoForDoctor profileForDoctor(User user) {
@@ -67,18 +66,18 @@ public class DoctorService {
     }
 
     /*
-     *  Конец сервиса профиля для доктора
+     *  Конец сервиса профиля
      * */
 
     /*
-     *  Начало сервиса категорий для доктора
+     *  Начало сервиса категорий
      * */
 
     public void addCategoryToDoctor(User user, List<Long> categoryIds) {
         User myUser = userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
         Set<Category> categoriesToAdd = new HashSet<>();
         for (Long categoryId : categoryIds) {
-            Category category = categoryRepository.findById(categoryId).orElseThrow(()-> new NotFoundException("Category not found"));
+            Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException("Category not found"));
             categoriesToAdd.add(category);
         }
 
@@ -91,7 +90,7 @@ public class DoctorService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
         Set<Category> categoriesToRemove = new HashSet<>();
         for (Long categoryId : categoryIds) {
-            Category category = categoryRepository.findById(categoryId).orElseThrow(()-> new NotFoundException("Category not found"));
+            Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new NotFoundException("Category not found"));
             categoriesToRemove.add(category);
         }
 
@@ -100,12 +99,12 @@ public class DoctorService {
     }
 
     /*
-     *  Конец сервиса категорий для доктора
+     *  Конец сервиса категорий
      * */
 
     /*
-    *  Начало сервиса объявлений для доктора
-    * */
+     *  Начало сервиса объявлений
+     * */
 
     public void createAd(User user, Long categoryId, CreateAdDto createAdDto) {
         User myUser = userRepository.findById(user.getId())
@@ -162,11 +161,11 @@ public class DoctorService {
     }
 
     /*
-     *  Конец сервиса объявлений для доктора
+     *  Конец сервиса объявлений
      * */
 
     /*
-     *  Начало сервиса отзывов для доктора
+     *  Начало сервиса отзывов
      * */
 
     public List<Feedback> getMyFeedback(User user, Double rating) {
@@ -178,7 +177,24 @@ public class DoctorService {
     }
 
     /*
-     *  Конец сервиса отзывов для доктора
+     *  Конец сервиса отзывов
+     * */
+
+    /*
+     *  Начало сервиса города
+     * */
+
+    public void addCityToDoctor(User user, Long cityId) {
+        User myUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Доктор не найден"));
+        City myCity = cityRepository.findById(cityId)
+                .orElseThrow(() -> new NotFoundException("Город не найден"));
+        myUser.setCity(myCity);
+        userRepository.save(myUser);
+    }
+
+    /*
+     *  Конец сервиса города
      * */
 
 }

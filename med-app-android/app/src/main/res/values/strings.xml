@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">med-app-android</string>
+    <string name="home">Home</string>
+    <string name="add">Add</string>
+    <string name="profile">Profile</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email_and_password_to_log_in">Enter your email and password to log in</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="enter_your_registration_details">Enter your registration details</string>
+    <string name="phone_number">Phone number</string>
+    <string name="next">Next</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
 </resources>
