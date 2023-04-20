@@ -4,7 +4,7 @@ import android.content.Context
 import dts.app.med_app_android.Constants.PREFS_TOKEN_FILE
 import dts.app.med_app_android.Constants.USER_TOKEN
 
-class TokenManager(val context: Context) {
+class TokenManager(context: Context) {
 
     private var prefs = context.getSharedPreferences(PREFS_TOKEN_FILE, Context.MODE_PRIVATE)
 

@@ -28,43 +28,43 @@ class Login : Fragment() {
     ): View {
         binding = LoginBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
-        login()
+//        login()
 
         return binding.root
     }
 
 
-    private fun login() = with(binding) {
-        buttonLogin.setOnClickListener {
-            val authService = RetrofitClient.getRetrofitClient()?.create(AuthService::class.java)
-
-            val request = AuthenticationRequest(
-                inputEmail.text.toString(),
-                inputPassword.text.toString()
-            )
-
-            val call = authService?.authenticate(request)
-
-            call?.enqueue(object : Callback<ReturnedToken> {
-                override fun onResponse(
-                    call: Call<ReturnedToken>,
-                    response: Response<ReturnedToken>
-                ) {
-                    if (response.isSuccessful) {
-                        val token = response.body()?.token
-                        tokenManager.saveToken(token.toString())
-
-                    } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<ReturnedToken>, t: Throwable) {
-                    Toast.makeText(context, "Bruh", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-        }
-    }
+//    private fun login() = with(binding) {
+//        buttonLogin.setOnClickListener {
+//            val authService = RetrofitClient.getRetrofitClient(tokenManager)?.create(AuthService::class.java)
+//
+//            val request = AuthenticationRequest(
+//                inputEmail.text.toString(),
+//                inputPassword.text.toString()
+//            )
+//
+//            val call = authService?.authenticate(request)
+//
+//            call?.enqueue(object : Callback<ReturnedToken> {
+//                override fun onResponse(
+//                    call: Call<ReturnedToken>,
+//                    response: Response<ReturnedToken>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val token = response.body()?.token
+//                        tokenManager.saveToken(token.toString())
+//
+//                    } else {
+//                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ReturnedToken>, t: Throwable) {
+//                    Toast.makeText(context, "Bruh", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+//
+//        }
+//    }
 
 }
