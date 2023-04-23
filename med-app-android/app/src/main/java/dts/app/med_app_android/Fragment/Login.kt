@@ -1,6 +1,5 @@
 package dts.app.med_app_android.Fragment
 
-import android.app.Activity
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,10 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.button.MaterialButton
 import de.hdodenhof.circleimageview.CircleImageView
 import dts.app.med_app_android.MainActivity
 import dts.app.med_app_android.Model.AuthenticationRequest
@@ -34,13 +31,14 @@ class Login : Fragment() {
     private lateinit var roleManager: RoleManager
     private lateinit var authService: AuthService
     private lateinit var userTypeDialog: Dialog
-    private lateinit var activity: MainActivity
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = LoginBinding.inflate(inflater, container, false)
+        val activity = activity as MainActivity
+        activity.hideBottomNavView()
         userTypeDialog = Dialog(requireContext())
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
@@ -87,6 +85,7 @@ class Login : Fragment() {
                         val token = response.body()?.token
                         roleManager.saveRole(role!!)
                         tokenManager.saveToken(token!!)
+                        findNavController()?.navigate(R.id.homeFragment)
                     } else {
                         Log.i(
                             "Response Error",

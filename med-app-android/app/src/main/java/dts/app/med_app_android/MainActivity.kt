@@ -4,23 +4,39 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var tokenManager: TokenManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        tokenManager = TokenManager(this)
+        navController = findNavController(R.id.fragment_box)
 
-        replaceFragment()
+        if (tokenManager.getToken() == null) {
+            navigateToLogin()
+        } else {
+            replaceFragment()
+        }
+
+    }
+
+    private fun navigateToLogin() {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.login, true)
+            .build()
+        navController.navigate(R.id.login, null, navOptions)
     }
 
     private fun replaceFragment() = with(binding) {
-        navController = findNavController(R.id.fragment_box)
         bottomNav.setupWithNavController(navController)
 
         bottomNav.setOnItemSelectedListener {
