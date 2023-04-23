@@ -13,8 +13,8 @@ interface AuthService {
 
     @POST("api/auth/login")
     fun authenticate(
-        @Header("No-Auth") noAuth: Boolean = true,
-        @Body request: AuthenticationRequest
+        @Body request: AuthenticationRequest,
+        @Header("No-Auth") noAuth: Boolean = true
     ): Call<ReturnedToken>
 
     @POST("api/auth/create-doctor")
@@ -25,8 +25,8 @@ interface AuthService {
 
     @POST("api/auth/create-client")
     fun registerClient(
-        @Header("No-Auth") noAuth: Boolean = true,
-        @Body request: RegisterClientRequest
+        @Body request: RegisterClientRequest,
+        @Header("No-Auth") noAuth: Boolean = true
     ): Call<ReturnedToken>
 
 }

@@ -10,7 +10,7 @@
         android:id="@+id/circleImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="24dp"
         android:src="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +99,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/txt_register_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/don_t_you_have_an_account"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+
+    <TextView
+        android:id="@+id/txt_register_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/register_now"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/txt_register_1"
+        app:layout_constraintTop_toTopOf="@+id/txt_register_1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.RegistrationDoctor">
+    tools:context=".Fragment.RegistrationClient">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
@@ -29,10 +29,10 @@
         app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
     <LinearLayout
-        android:id="@+id/registration_first_part"
+        android:id="@+id/registration_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -123,103 +123,10 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_phoneNumber"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/phone_number"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_phone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:maxLength="30" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/registration_second_part"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_first_part">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:paddingStart="8dp"
-            android:text="@string/select_specializations"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            app:flexWrap="wrap">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_category_1"
-                style="@style/CategoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="Категория 1" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_category_2"
-                style="@style/CategoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="Категория 2" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_category_3"
-                style="@style/CategoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="Категория 3" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_category_4"
-                style="@style/CategoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="Категория 4" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_category_5"
-                style="@style/CategoryButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:text="Категория 5" />
-
-        </com.google.android.flexbox.FlexboxLayout>
-
         <RelativeLayout
             android:id="@+id/relative_spinner_city"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -248,20 +155,6 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/back"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_second_part" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -270,25 +163,8 @@
         android:layout_marginEnd="16dp"
         android:text="@string/register"
         android:textSize="16sp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_back" />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_continue"
-        android:layout_width="match_parent"
-        android:visibility="visible"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/next"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_first_part" />
-
+        app:layout_constraintTop_toBottomOf="@+id/registration_form" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

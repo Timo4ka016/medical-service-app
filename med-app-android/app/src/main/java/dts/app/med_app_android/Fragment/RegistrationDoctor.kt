@@ -13,9 +13,10 @@ import dts.app.med_app_android.Model.RegisterDoctorRequest
 import dts.app.med_app_android.Model.ReturnedToken
 import dts.app.med_app_android.R
 import dts.app.med_app_android.Retrofit.RetrofitClient
+import dts.app.med_app_android.Retrofit.RoleManager
 import dts.app.med_app_android.Service.AuthService
 import dts.app.med_app_android.Service.DoctorService
-import dts.app.med_app_android.TokenManager
+import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.databinding.RegistrationDoctorBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +27,7 @@ class RegistrationDoctor : Fragment() {
     private lateinit var doctorService: DoctorService
     private lateinit var authService: AuthService
     private lateinit var tokenManager: TokenManager
+    private lateinit var roleManager: RoleManager
     private val selectedCategoryIds = mutableListOf<Long>()
 
     override fun onCreateView(
@@ -33,6 +35,7 @@ class RegistrationDoctor : Fragment() {
     ): View? {
         binding = RegistrationDoctorBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
+        roleManager = RoleManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         authService = retrofit.create(AuthService::class.java)
         doctorService = retrofit.create(DoctorService::class.java)
@@ -46,31 +49,31 @@ class RegistrationDoctor : Fragment() {
         navigateToFirstFormPart()
         navigateToSecondFormPart()
         buttonRegister.setOnClickListener {
-            buttonRegister.setOnClickListener {
 
-                val callRegister = authService.registerDoctor(registerData())
-                callRegister.enqueue(object : Callback<ReturnedToken> {
-                    override fun onResponse(
-                        call: Call<ReturnedToken>, response: Response<ReturnedToken>
-                    ) {
-                        if (response.isSuccessful) {
-                            val token = response.body()?.token
-                            tokenManager.saveToken(token!!)
-                            Log.i("Response Good", tokenManager.getToken().toString())
-                            addCategoryToDoctor()
-                            addCityToDoctor()
-                        } else {
-                            Log.i(
-                                "Response Error",
-                                "Failed to register doctor: ${response.code()} ${response.message()}"
-                            )
-                        }
+            val callRegister = authService.registerDoctor(registerData())
+            callRegister.enqueue(object : Callback<ReturnedToken> {
+                override fun onResponse(
+                    call: Call<ReturnedToken>, response: Response<ReturnedToken>
+                ) {
+                    if (response.isSuccessful) {
+                        val role = response.body()?.role
+                        val token = response.body()?.token
+                        roleManager.saveRole(role!!)
+                        tokenManager.saveToken(token!!)
+                        addCategoryToDoctor()
+                        addCityToDoctor()
+                    } else {
+                        Log.i(
+                            "Response Error",
+                            "Failed to register doctor: ${response.code()} ${response.message()}"
+                        )
                     }
-                    override fun onFailure(call: Call<ReturnedToken>, t: Throwable) {
-                        Log.i("Response Error", "Failed to register doctor: ${t.message}")
-                    }
-                })
-            }
+                }
+
+                override fun onFailure(call: Call<ReturnedToken>, t: Throwable) {
+                    Log.i("Response Error", "Failed to register doctor: ${t.message}")
+                }
+            })
         }
     }
 
@@ -134,6 +137,7 @@ class RegistrationDoctor : Fragment() {
                     )
                 }
             }
+
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.i(
                     "Response Error", "Failed to add city to doctor: ${t.message}"

@@ -9,5 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ReturnedTokenDto {
     private String token;
+    private String user_type;
 
 }

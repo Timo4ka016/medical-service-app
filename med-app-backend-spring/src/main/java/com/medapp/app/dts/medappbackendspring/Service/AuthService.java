@@ -29,7 +29,6 @@ public class AuthService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .phoneNumber(request.getPhoneNumber())
                 .role(Role.USER_CLIENT)
                 .build();
         var savedUser = repository.save(user);
@@ -37,6 +36,7 @@ public class AuthService {
         saveUserToken(savedUser, jwtToken);
         return ReturnedTokenDto.builder()
                 .token(jwtToken)
+                .user_type(user.getRole().toString())
                 .build();
     }
 
@@ -54,6 +54,7 @@ public class AuthService {
         saveUserToken(savedUser, jwtToken);
         return ReturnedTokenDto.builder()
                 .token(jwtToken)
+                .user_type(user.getRole().toString())
                 .build();
     }
 
@@ -71,6 +72,7 @@ public class AuthService {
         saveUserToken(savedUser, jwtToken);
         return ReturnedTokenDto.builder()
                 .token(jwtToken)
+                .user_type(user.getRole().toString())
                 .build();
     }
 
@@ -88,6 +90,7 @@ public class AuthService {
         saveUserToken(user, jwtToken);
         return ReturnedTokenDto.builder()
                 .token(jwtToken)
+                .user_type(user.getRole().toString())
                 .build();
     }
 

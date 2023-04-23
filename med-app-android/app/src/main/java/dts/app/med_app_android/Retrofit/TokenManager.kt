@@ -1,4 +1,4 @@
-package dts.app.med_app_android
+package dts.app.med_app_android.Retrofit
 
 import android.content.Context
 import dts.app.med_app_android.Constants.PREFS_TOKEN_FILE

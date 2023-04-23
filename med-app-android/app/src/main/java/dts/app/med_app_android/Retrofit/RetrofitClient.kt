@@ -3,7 +3,6 @@ package dts.app.med_app_android.Retrofit
 
 import android.util.Log
 import dts.app.med_app_android.Constants.BASE_URL
-import dts.app.med_app_android.TokenManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

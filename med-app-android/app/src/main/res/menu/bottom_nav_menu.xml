@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/item_home"
         android:title="@string/home" />
     <item
-        android:id="@+id/add"
+        android:id="@+id/item_add"
         android:title="@string/add" />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/item_profile"
         android:title="@string/profile" />
 
 </menu>

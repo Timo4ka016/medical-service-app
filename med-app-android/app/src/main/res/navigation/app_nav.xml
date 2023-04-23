@@ -3,15 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/registration">
+    app:startDestination="@id/login">
 
     <fragment
         android:id="@+id/login"
         android:name="dts.app.med_app_android.Fragment.Login"
         android:label="login"
-        tools:layout="@layout/login" />
+        tools:layout="@layout/login" >
+        <action
+            android:id="@+id/action_login_to_registrationDoctor"
+            app:destination="@id/registrationDoctor" />
+        <action
+            android:id="@+id/action_login_to_registrationClient"
+            app:destination="@id/registrationClient" />
+    </fragment>
     <fragment
-        android:id="@+id/registration"
+        android:id="@+id/registrationDoctor"
         android:name="dts.app.med_app_android.Fragment.RegistrationDoctor"
-        android:label="Registration" />
+        android:label="registration_doctor"
+        tools:layout="@layout/registration_doctor">
+        <action
+            android:id="@+id/action_registrationDoctor_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationClient"
+        android:name="dts.app.med_app_android.Fragment.RegistrationClient"
+        android:label="registration_client"
+        tools:layout="@layout/registration_client" >
+        <action
+            android:id="@+id/action_registrationClient_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="dts.app.med_app_android.Fragment.Add"
+        android:label="add"
+        tools:layout="@layout/add" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="dts.app.med_app_android.Fragment.Home"
+        android:label="home"
+        tools:layout="@layout/home" />
+    <fragment
+        android:id="@+id/profileClientFragment"
+        android:name="dts.app.med_app_android.Fragment.ProfileClient"
+        android:label="profile_client"
+        tools:layout="@layout/profile_client" />
+    <fragment
+        android:id="@+id/profileDoctorFragment"
+        android:name="dts.app.med_app_android.Fragment.ProfileDoctor"
+        android:label="profile_doctor"
+        tools:layout="@layout/profile_doctor" />
 </navigation>
