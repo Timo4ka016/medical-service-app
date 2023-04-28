@@ -14,6 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+
     <style name="CategoryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textSize">10sp</item>
         <item name="textAllCaps">false</item>

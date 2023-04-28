@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -201,5 +202,44 @@ public class ClientService {
     /*
      *  Конец сервиса города
      * */
+
+    /*
+     *  Начало сервиса рекомендаций
+     * */
+
+    public List<RecomendationAds> getRecomendationAds(User client, int limit) {
+        City clientCity = client.getCity();
+
+        // Получаем список докторов, имеющих объявления
+        List<User> doctorsWithAds = userRepository.findAllByRoleAndAdsIsNotNull(Role.USER_DOCTOR);
+
+        // Фильтруем объявления по городу клиента и городу доктора, если они различаются
+        List<RecomendationAds> ads = doctorsWithAds.stream()
+                .filter(doctor -> !Objects.equals(doctor.getCity(), clientCity))
+                .flatMap(doctor -> doctor.getAds().stream()
+                        .filter(ad -> Objects.equals(ad.getUser().getCity(), clientCity))
+                        .map(ad -> {
+                            RecomendationAds recommendation = new RecomendationAds();
+                            recommendation.setAd(ad);
+                            recommendation.setDoctor(doctor);
+                            return recommendation;
+                        }))
+                .collect(Collectors.toList());
+
+        // Фильтруем рекомендации по рейтингу доктора
+        ads = ads.stream()
+                .filter(ad -> ad.getDoctor().getRating() >= 3.6)
+                .collect(Collectors.toList());
+
+        // Сортируем рекомендации по убыванию рейтинга доктора и выбираем первые `limit` рекомендаций
+        ads.sort((ad1, ad2) -> Double.compare(ad2.getDoctor().getRating(), ad1.getDoctor().getRating()));
+        ads = ads.subList(0, Math.min(limit, ads.size()));
+
+        return ads.stream().map(ad -> mapper.map(ad, RecomendationAds.class)).collect(Collectors.toList());
+    }
+    /*
+     *  Конец сервиса рекомендаций
+     * */
+
 
 }

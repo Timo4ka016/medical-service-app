@@ -1,9 +1,6 @@
 package com.medapp.app.dts.medappbackendspring.Controller;
 
-import com.medapp.app.dts.medappbackendspring.Dto.DoctorProfileInfoForClient;
-import com.medapp.app.dts.medappbackendspring.Dto.ProfileInfoForClient;
-import com.medapp.app.dts.medappbackendspring.Dto.SearchDoctorResponse;
-import com.medapp.app.dts.medappbackendspring.Dto.UpdateClientDto;
+import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
 import com.medapp.app.dts.medappbackendspring.Service.ClientService;
@@ -88,5 +85,12 @@ public class ClientController {
     ) {
         clientService.addCityToClient(user, cityId);
     }
+
+        @GetMapping("/recommendations")
+        public ResponseEntity<List<RecomendationAds>> getRecommendations(@AuthenticationPrincipal User client,
+                                                                         @RequestParam(defaultValue = "10") int limit) {
+            List<RecomendationAds> recommendations = clientService.getRecomendationAds(client, limit);
+            return ResponseEntity.ok(recommendations);
+        }
 
 }

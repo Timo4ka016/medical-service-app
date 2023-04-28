@@ -37,8 +37,8 @@ class Login : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = LoginBinding.inflate(inflater, container, false)
-        val activity = activity as MainActivity
-        activity.hideBottomNavView()
+//        val activity = activity as MainActivity
+//        activity.hideBottomNavView()
         userTypeDialog = Dialog(requireContext())
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
@@ -85,7 +85,7 @@ class Login : Fragment() {
                         val token = response.body()?.token
                         roleManager.saveRole(role!!)
                         tokenManager.saveToken(token!!)
-                        findNavController()?.navigate(R.id.homeFragment)
+                        findNavController().navigate(R.id.homeFragment)
                     } else {
                         Log.i(
                             "Response Error",

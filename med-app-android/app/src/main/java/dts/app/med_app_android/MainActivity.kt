@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         if (tokenManager.getToken() == null) {
             navigateToLogin()
-        } else {
-            replaceFragment()
-        }
+        } else replaceFragment()
 
     }
 
