@@ -17,6 +17,8 @@ public class Ad {
     private String description;
     private Long price;
     private String address;
+    private String city;
+
     @ManyToOne
     private User user;
     @ManyToOne

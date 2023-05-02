@@ -1,5 +1,6 @@
 package com.medapp.app.dts.medappbackendspring.Dto;
 
+import com.medapp.app.dts.medappbackendspring.Entity.City;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,7 @@ public class UpdateDoctorDto {
     private String description;
     private String  phoneNumber;
     private String password;
+
+    private Long cityId;
 
 }

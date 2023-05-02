@@ -62,6 +62,16 @@ public class DoctorService {
         if (request.getPassword() != null && !request.getPassword().trim().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(request.getPassword().trim()));
         }
+        if (request.getCityId() != null) {
+            City city = cityRepository.findById(request.getCityId())
+                    .orElseThrow(() -> new NotFoundException("Город не найден"));
+            existingUser.setCity(city);
+            List<Ad> userAds = existingUser.getAds();
+            for (Ad ad : userAds) {
+                ad.setCity(city.getCity_name());
+            }
+            adRepository.saveAll(userAds);
+        }
         userRepository.save(existingUser);
     }
 
@@ -122,6 +132,7 @@ public class DoctorService {
                 .description(createAdDto.getDescription().trim())
                 .price(createAdDto.getPrice())
                 .address(createAdDto.getAddress())
+                .city(myUser.getCity().getCity_name())
                 .user(myUser)
                 .category(myCategory)
                 .build();
