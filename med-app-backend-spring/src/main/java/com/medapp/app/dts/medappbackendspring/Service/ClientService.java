@@ -208,34 +208,44 @@ public class ClientService {
      * */
 
     public List<RecomendationAds> getRecomendationAds(User client, int limit) {
-        City clientCity = client.getCity();
+//        City clientCity = client.getCity();
+//
+//        // Получаем список докторов, имеющих объявления
+//        List<User> doctorsWithAds = userRepository.findAllByRoleAndAdsIsNotNull(Role.USER_DOCTOR);
+//
+//        // Фильтруем объявления по городу клиента и городу доктора, если они различаются
+//        List<RecomendationAds> ads = doctorsWithAds.stream()
+//                .filter(doctor -> !Objects.equals(doctor.getCity(), clientCity))
+//                .flatMap(doctor -> doctor.getAds().stream()
+//                        .filter(ad -> Objects.equals(ad.getUser().getCity(), clientCity))
+//                        .map(ad -> {
+//                            RecomendationAds recommendation = new RecomendationAds();
+//                            recommendation.setAd(ad);
+//                            recommendation.setDoctor(doctor);
+//                            return recommendation;
+//                        }))
+//                .collect(Collectors.toList());
+//
+//        // Фильтруем рекомендации по рейтингу доктора
+//        ads = ads.stream()
+//                .filter(ad -> ad.getDoctor().getRating() >= 3.6)
+//                .collect(Collectors.toList());
+//
+//        // Сортируем рекомендации по убыванию рейтинга доктора и выбираем первые `limit` рекомендаций
+//        ads.sort((ad1, ad2) -> Double.compare(ad2.getDoctor().getRating(), ad1.getDoctor().getRating()));
+//        ads = ads.subList(0, Math.min(limit, ads.size()));
 
-        // Получаем список докторов, имеющих объявления
-        List<User> doctorsWithAds = userRepository.findAllByRoleAndAdsIsNotNull(Role.USER_DOCTOR);
+        return null;
+    }
 
-        // Фильтруем объявления по городу клиента и городу доктора, если они различаются
-        List<RecomendationAds> ads = doctorsWithAds.stream()
-                .filter(doctor -> !Objects.equals(doctor.getCity(), clientCity))
-                .flatMap(doctor -> doctor.getAds().stream()
-                        .filter(ad -> Objects.equals(ad.getUser().getCity(), clientCity))
-                        .map(ad -> {
-                            RecomendationAds recommendation = new RecomendationAds();
-                            recommendation.setAd(ad);
-                            recommendation.setDoctor(doctor);
-                            return recommendation;
-                        }))
-                .collect(Collectors.toList());
-
-        // Фильтруем рекомендации по рейтингу доктора
-        ads = ads.stream()
-                .filter(ad -> ad.getDoctor().getRating() >= 3.6)
-                .collect(Collectors.toList());
-
-        // Сортируем рекомендации по убыванию рейтинга доктора и выбираем первые `limit` рекомендаций
-        ads.sort((ad1, ad2) -> Double.compare(ad2.getDoctor().getRating(), ad1.getDoctor().getRating()));
-        ads = ads.subList(0, Math.min(limit, ads.size()));
-
-        return ads.stream().map(ad -> mapper.map(ad, RecomendationAds.class)).collect(Collectors.toList());
+    public List<RecomendationAds> getAds(User client, String city) {
+        Specification<Ad> spec = Specification.where(null);
+        if (city != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("city"), city));
+        }
+        List<Ad> adList = adRepository.findAll(spec);
+        return adList.stream().map(
+                ad -> mapper.map(ad, RecomendationAds.class)).collect(Collectors.toList());
     }
     /*
      *  Конец сервиса рекомендаций

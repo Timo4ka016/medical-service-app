@@ -3,12 +3,15 @@
 
     <item
         android:id="@+id/item_home"
+        android:icon="@drawable/ic_home"
         android:title="@string/home" />
     <item
         android:id="@+id/item_add"
-        android:title="@string/add" />
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/favorite" />
     <item
         android:id="@+id/item_profile"
+        android:icon="@drawable/ic_profile"
         android:title="@string/profile" />
 
 </menu>

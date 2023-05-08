@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">med-app-android-beta</string>
+    <string name="txt_home">Главное</string>
+    <string name="txt_add">Создать</string>
+    <string name="txt_profile">Профиль</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="log_in">Войти</string>
+</resources>

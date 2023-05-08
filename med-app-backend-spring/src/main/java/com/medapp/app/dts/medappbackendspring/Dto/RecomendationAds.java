@@ -9,22 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecomendationAds {
-    private User doctor;
-    private Ad ad;
-
-    public User getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(User doctor) {
-        this.doctor = doctor;
-    }
-
-    public Ad getAd() {
-        return ad;
-    }
-
-    public void setAd(Ad ad) {
-        this.ad = ad;
-    }
+    private String title;
+    private String address;
+    private String city;
+    private String price;
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="dts.app.med_app_android_beta.ui.dashboard.AddFragment"
+        android:label="AddFragment"
+        tools:layout="@layout/fragment_add"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="dts.app.med_app_android_beta.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/profileDoctorFragment"
+        android:name="dts.app.med_app_android_beta.ui.notifications.ProfileDoctorFragment"
+        android:label="fragment_profile_doctor"
+        tools:layout="@layout/fragment_profile_doctor" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="dts.app.med_app_android_beta.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>

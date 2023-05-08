@@ -86,11 +86,18 @@ public class ClientController {
         clientService.addCityToClient(user, cityId);
     }
 
-        @GetMapping("/recommendations")
-        public ResponseEntity<List<RecomendationAds>> getRecommendations(@AuthenticationPrincipal User client,
-                                                                         @RequestParam(defaultValue = "10") int limit) {
-            List<RecomendationAds> recommendations = clientService.getRecomendationAds(client, limit);
-            return ResponseEntity.ok(recommendations);
-        }
+    @GetMapping("/recommendations")
+    public ResponseEntity<List<RecomendationAds>> getRecommendations(@AuthenticationPrincipal User client,
+                                                                     @RequestParam(defaultValue = "10") int limit) {
+        List<RecomendationAds> recommendations = clientService.getRecomendationAds(client, limit);
+        return ResponseEntity.ok(recommendations);
+    }
+
+    @GetMapping("/my-ads")
+    public ResponseEntity<List<RecomendationAds>> getMyAds(@AuthenticationPrincipal User client,
+                                                                     @RequestParam String city) {
+        List<RecomendationAds> recommendations = clientService.getAds(client, city);
+        return ResponseEntity.ok(recommendations);
+    }
 
 }

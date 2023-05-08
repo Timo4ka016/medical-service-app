@@ -50,7 +50,7 @@ class Login : Fragment() {
     }
 
     private fun showUserType() = with(binding) {
-        txtRegister2.setOnClickListener {
+        txtRegister.setOnClickListener {
             userTypeDialog()
         }
     }

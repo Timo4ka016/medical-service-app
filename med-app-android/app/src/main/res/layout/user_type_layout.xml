@@ -35,7 +35,8 @@
                 android:layout_height="100dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:src="@color/black"
+                android:src="@drawable/doctor_avatar"
+                app:civ_border_width="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_1" />
 
@@ -70,7 +71,8 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:src="@color/black"
+                app:civ_border_width="1dp"
+                android:src="@drawable/client_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_1" />
 
