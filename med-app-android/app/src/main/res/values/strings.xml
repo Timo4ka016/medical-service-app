@@ -34,4 +34,7 @@
     <string name="categories">Категории</string>
     <string name="recomendations">Рекомендации</string>
     <string name="favorite">Избранное</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="app_settings">Настройки приложения</string>
+    <string name="log_out">Выйти</string>
 </resources>
