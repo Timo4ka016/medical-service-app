@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import dts.app.med_app_android.MainActivity
 import dts.app.med_app_android.Model.RegisterDoctorRequest
 import dts.app.med_app_android.Model.ReturnedToken
@@ -33,10 +34,8 @@ class RegistrationDoctor : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = RegistrationDoctorBinding.inflate(inflater, container, false)
-        val activity = activity as MainActivity
-        activity.hideBottomNavView()
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
@@ -65,6 +64,7 @@ class RegistrationDoctor : Fragment() {
                         tokenManager.saveToken(token!!)
                         addCategoryToDoctor()
                         addCityToDoctor()
+                        findNavController().navigate(R.id.homeFragment)
                     } else {
                         Log.i(
                             "Response Error",
@@ -202,4 +202,6 @@ class RegistrationDoctor : Fragment() {
         )
         spinnerCity.adapter = cityAdapter
     }
+
+
 }

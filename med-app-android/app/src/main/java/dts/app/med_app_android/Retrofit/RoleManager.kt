@@ -18,4 +18,10 @@ class RoleManager(context: Context) {
         return prefs.getString(USER_ROLE, null)
     }
 
+    fun removeRole() {
+        val editor = prefs.edit()
+        editor.remove(USER_ROLE)
+        editor.apply()
+    }
+
 }

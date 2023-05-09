@@ -29,4 +29,7 @@ interface AuthService {
         @Header("No-Auth") noAuth: Boolean = true
     ): Call<ReturnedToken>
 
+    @POST("/api/auth/logout")
+    fun logout():Call<Void>
+
 }

@@ -55,4 +55,9 @@
         android:name="dts.app.med_app_android.Fragment.ProfileDoctor"
         android:label="profile_doctor"
         tools:layout="@layout/profile_doctor" />
+    <fragment
+        android:id="@+id/editProfileClient"
+        android:name="dts.app.med_app_android.Fragment.EditProfileClient"
+        android:label="EditProfileClient"
+        tools:layout="@layout/edit_profile_client"/>
 </navigation>

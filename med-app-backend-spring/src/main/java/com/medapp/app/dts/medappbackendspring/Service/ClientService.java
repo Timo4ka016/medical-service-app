@@ -54,9 +54,6 @@ public class ClientService {
         if (request.getLastname() != null && !request.getLastname().trim().isEmpty()) {
             existingUser.setLastname(request.getLastname().trim());
         }
-        if (request.getPhoneNumber() != null && !request.getPhoneNumber().trim().isEmpty()) {
-            existingUser.setPhoneNumber(request.getPhoneNumber().trim());
-        }
         if (request.getPassword() != null && !request.getPassword().trim().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(request.getPassword().trim()));
         }

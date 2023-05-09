@@ -18,6 +18,10 @@ class TokenManager(context: Context) {
         return prefs.getString(USER_TOKEN, null)
     }
 
-
+    fun removeToken() {
+        val editor = prefs.edit()
+        editor.remove(USER_TOKEN)
+        editor.apply()
+    }
 
 }

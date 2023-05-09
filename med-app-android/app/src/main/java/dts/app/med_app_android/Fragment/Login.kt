@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
 import dts.app.med_app_android.MainActivity
@@ -37,8 +38,6 @@ class Login : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = LoginBinding.inflate(inflater, container, false)
-//        val activity = activity as MainActivity
-//        activity.hideBottomNavView()
         userTypeDialog = Dialog(requireContext())
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
@@ -85,7 +84,7 @@ class Login : Fragment() {
                         val token = response.body()?.token
                         roleManager.saveRole(role!!)
                         tokenManager.saveToken(token!!)
-                        findNavController().navigate(R.id.homeFragment)
+                        findNavController().navigate(R.id.homeFragment, null)
                     } else {
                         Log.i(
                             "Response Error",
@@ -107,5 +106,6 @@ class Login : Fragment() {
             password = binding.inputPassword.text?.trim().toString()
         )
     }
+
 
 }

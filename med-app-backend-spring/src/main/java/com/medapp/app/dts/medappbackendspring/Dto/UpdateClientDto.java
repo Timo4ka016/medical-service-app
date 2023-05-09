@@ -9,7 +9,6 @@ import lombok.*;
 public class UpdateClientDto {
     private String firstname;
     private String lastname;
-    private String  phoneNumber;
     private String password;
 
 }

@@ -7,6 +7,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dts.app.med_app_android.Retrofit.RoleManager
 import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.databinding.ActivityMainBinding
 
@@ -14,17 +16,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var tokenManager: TokenManager
+    private lateinit var roleManager: RoleManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         tokenManager = TokenManager(this)
+        roleManager = RoleManager((this))
         navController = findNavController(R.id.fragment_box)
-
+        bottomNavViewSettings()
         if (tokenManager.getToken() == null) {
             navigateToLogin()
-        } else replaceFragment()
+        }
+        setupBottomNavWithCustomListener()
 
+    }
+
+    private fun bottomNavViewSettings() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.login -> hideBottomNav()
+                R.id.registrationClient -> hideBottomNav()
+                R.id.registrationDoctor -> hideBottomNav()
+                R.id.editProfileClient -> hideBottomNav()
+                else -> showBottomNav()
+            }
+        }
     }
 
     private fun navigateToLogin() {
@@ -34,20 +51,40 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.login, null, navOptions)
     }
 
-    private fun replaceFragment() = with(binding) {
+    private fun setupBottomNavWithCustomListener() = with(binding) {
         bottomNav.setupWithNavController(navController)
-
-        bottomNav.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.item_home -> navController.navigate(R.id.homeFragment)
-                R.id.item_add -> navController.navigate(R.id.addFragment)
-                R.id.item_profile -> navController.navigate(R.id.profileClientFragment)
+        val customOnNavigationItemSelectedListener =
+            BottomNavigationView.OnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.item_home -> {
+                        navController.navigate(R.id.homeFragment)
+                        return@OnNavigationItemSelectedListener true
+                    }
+                    R.id.item_add -> {
+                        navController.navigate(R.id.addFragment)
+                        return@OnNavigationItemSelectedListener true
+                    }
+                    R.id.item_profile -> {
+                        val role = roleManager.getRole()
+                        if (role != null) {
+                            when (role) {
+                                "USER_CLIENT" -> navController.navigate(R.id.profileClientFragment)
+                                "USER_DOCTOR" -> navController.navigate(R.id.profileDoctorFragment)
+                            }
+                        }
+                        return@OnNavigationItemSelectedListener true
+                    }
+                }
+                false
             }
-            true
-        }
+        bottomNav.setOnItemSelectedListener(customOnNavigationItemSelectedListener)
     }
 
-    fun hideBottomNavView() = with(binding) { bottomNav.visibility = View.GONE }
+    private fun hideBottomNav() {
+        binding.bottomNav.visibility = View.GONE
+    }
 
-    fun showBottomNavView() = with(binding) { bottomNav.visibility = View.VISIBLE }
+    private fun showBottomNav() {
+        binding.bottomNav.visibility = View.VISIBLE
+    }
 }

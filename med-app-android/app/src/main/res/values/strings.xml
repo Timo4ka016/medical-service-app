@@ -37,4 +37,9 @@
     <string name="edit_profile">Редактировать профиль</string>
     <string name="app_settings">Настройки приложения</string>
     <string name="log_out">Выйти</string>
+    <string name="my_ads">Мои объявления</string>
+    <string name="enter_a_new_password">Введите новый пароль</string>
+    <string name="save">Сохранить</string>
+    <string name="type_new_data">Введите новые данные</string>
+    <string name="create_ad">Создать объявление</string>
 </resources>
