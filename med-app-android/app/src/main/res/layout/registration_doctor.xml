@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.RegistrationDoctor">
+    tools:context=".Fragment.RegistrationDoctorFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
@@ -48,7 +48,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -185,7 +185,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registration_first_part">

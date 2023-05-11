@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface AdRepository extends JpaRepository<Ad, Long> {
     Ad findByTitle(String title);
+    List<Ad> findByUserId(Long userId);
+
     List<Ad> findAll(Specification<Ad> spec);
 }

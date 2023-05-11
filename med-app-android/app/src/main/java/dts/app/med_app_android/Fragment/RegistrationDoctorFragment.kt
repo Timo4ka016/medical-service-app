@@ -10,7 +10,6 @@ import android.widget.Spinner
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import dts.app.med_app_android.MainActivity
 import dts.app.med_app_android.Model.RegisterDoctorRequest
 import dts.app.med_app_android.Model.ReturnedToken
 import dts.app.med_app_android.R
@@ -24,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegistrationDoctor : Fragment() {
+class RegistrationDoctorFragment : Fragment() {
     private lateinit var binding: RegistrationDoctorBinding
     private lateinit var doctorService: DoctorService
     private lateinit var authService: AuthService

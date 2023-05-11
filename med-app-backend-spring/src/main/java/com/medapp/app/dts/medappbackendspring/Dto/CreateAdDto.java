@@ -15,6 +15,7 @@ public class CreateAdDto {
     private Long price;
     private String address;
     private String city;
+    private Double rating;
     private User user;
     private Category category;
 }

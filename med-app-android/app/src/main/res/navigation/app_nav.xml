@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/login"
-        android:name="dts.app.med_app_android.Fragment.Login"
+        android:name="dts.app.med_app_android.Fragment.LoginFragment"
         android:label="login"
         tools:layout="@layout/login" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationDoctor"
-        android:name="dts.app.med_app_android.Fragment.RegistrationDoctor"
+        android:name="dts.app.med_app_android.Fragment.RegistrationDoctorFragment"
         android:label="registration_doctor"
         tools:layout="@layout/registration_doctor">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationClient"
-        android:name="dts.app.med_app_android.Fragment.RegistrationClient"
+        android:name="dts.app.med_app_android.Fragment.RegistrationClientFragment"
         android:label="registration_client"
         tools:layout="@layout/registration_client" >
         <action
@@ -37,27 +37,37 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="dts.app.med_app_android.Fragment.Add"
+        android:name="dts.app.med_app_android.Fragment.CreateAdFragment"
         android:label="add"
-        tools:layout="@layout/add" />
+        tools:layout="@layout/create_ad" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="dts.app.med_app_android.Fragment.Home"
+        android:name="dts.app.med_app_android.Fragment.HomeFragment"
         android:label="home"
         tools:layout="@layout/home" />
     <fragment
         android:id="@+id/profileClientFragment"
-        android:name="dts.app.med_app_android.Fragment.ProfileClient"
+        android:name="dts.app.med_app_android.Fragment.ProfileClientFragment"
         android:label="profile_client"
         tools:layout="@layout/profile_client" />
     <fragment
         android:id="@+id/profileDoctorFragment"
-        android:name="dts.app.med_app_android.Fragment.ProfileDoctor"
+        android:name="dts.app.med_app_android.Fragment.ProfileDoctorFragment"
         android:label="profile_doctor"
         tools:layout="@layout/profile_doctor" />
     <fragment
         android:id="@+id/editProfileClient"
-        android:name="dts.app.med_app_android.Fragment.EditProfileClient"
+        android:name="dts.app.med_app_android.Fragment.EditProfileClientFragment"
         android:label="EditProfileClient"
         tools:layout="@layout/edit_profile_client"/>
+    <fragment
+        android:id="@+id/editProfileDoctor"
+        android:name="dts.app.med_app_android.Fragment.EditProfileDoctorFragment"
+        android:label="EditProfileDoctor"
+        tools:layout="@layout/edit_profile_doctor"/>
+    <fragment
+        android:id="@+id/doctorAdsFragment"
+        android:name="dts.app.med_app_android.Fragment.DoctorAdsFragment"
+        android:label="DoctorAdsFragment"
+        tools:layout="@layout/doctor_ads"/>
 </navigation>

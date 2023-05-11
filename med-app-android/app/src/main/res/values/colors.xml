@@ -11,4 +11,5 @@
     <color name="cancel_color">#EB5757</color>
     <color name="txt_color_1">#333333</color>
     <color name="main_card_background_color">#F5F5F5</color>
+    <color name="border_default_color">#949494</color>
 </resources>

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dts.app.med_app_android.databinding.HomeBinding
 
-class Home: Fragment() {
+class HomeFragment: Fragment() {
     private lateinit var binding: HomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -18,6 +18,7 @@ public class Ad {
     private Long price;
     private String address;
     private String city;
+    private Double rating;
 
     @ManyToOne
     private User user;

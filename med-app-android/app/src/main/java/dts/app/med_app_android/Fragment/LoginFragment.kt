@@ -9,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import de.hdodenhof.circleimageview.CircleImageView
-import dts.app.med_app_android.MainActivity
 import dts.app.med_app_android.Model.AuthenticationRequest
 import dts.app.med_app_android.Model.ReturnedToken
 import dts.app.med_app_android.R
@@ -26,7 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class Login : Fragment() {
+class LoginFragment : Fragment() {
     private lateinit var binding: LoginBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var roleManager: RoleManager

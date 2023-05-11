@@ -129,9 +129,16 @@ public class ClientService {
         for (Feedback f : doctor.getReceivedFeedbacks()) {
             sum += f.getRating();
         }
-        double rating = sum / doctor.getReceivedFeedbacks().size();
-        doctor.setRating(rating);
+        double newRating = sum / doctor.getReceivedFeedbacks().size();
+        doctor.setRating(newRating);
         userRepository.save(doctor);
+
+        List<Ad> doctorAds = adRepository.findByUserId(doctor.getId());
+        for (Ad adItem : doctorAds) {
+            adItem.setRating(newRating);
+        }
+        adRepository.saveAll(doctorAds);
+
     }
 
     public void updateFeedback(User user, Long feedbackId, Feedback feedback) {
@@ -155,6 +162,13 @@ public class ClientService {
         doctor.setRating(newRating);
         userRepository.save(doctor);
 
+        List<Ad> doctorAds = adRepository.findByUserId(doctor.getId());
+        for (Ad ad : doctorAds) {
+            ad.setRating(newRating);
+        }
+        adRepository.saveAll(doctorAds);
+
+
     }
 
     public void deleteFeedback(User user, Long feedbackId) {
@@ -177,6 +191,13 @@ public class ClientService {
         double newRating = count > 0 ? sum / count : 0;
         doctor.setRating(newRating);
         userRepository.save(doctor);
+
+        List<Ad> doctorAds = adRepository.findByUserId(doctor.getId());
+        for (Ad ad : doctorAds) {
+            ad.setRating(newRating);
+        }
+        adRepository.saveAll(doctorAds);
+
     }
 
     /*

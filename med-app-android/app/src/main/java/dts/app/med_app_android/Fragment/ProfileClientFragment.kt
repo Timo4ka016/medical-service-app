@@ -12,13 +12,13 @@ import dts.app.med_app_android.Retrofit.RetrofitClient
 import dts.app.med_app_android.Retrofit.RoleManager
 import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.Service.AuthService
-import dts.app.med_app_android.databinding.ProfileDoctorBinding
+import dts.app.med_app_android.databinding.ProfileClientBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProfileDoctor : Fragment() {
-    private lateinit var binding: ProfileDoctorBinding
+class ProfileClientFragment : Fragment() {
+    private lateinit var binding: ProfileClientBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var roleManager: RoleManager
     private lateinit var authService: AuthService
@@ -26,12 +26,13 @@ class ProfileDoctor : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = ProfileDoctorBinding.inflate(inflater, container, false)
+    ): View {
+        binding = ProfileClientBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         authService = retrofit.create(AuthService::class.java)
+        navigate()
 
         return binding.root
     }
@@ -63,7 +64,7 @@ class ProfileDoctor : Fragment() {
         btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.editProfileClient)
         }
-        btnCreateAd.setOnClickListener {
+        btnFavorite.setOnClickListener {
             findNavController().navigate(R.id.addFragment)
         }
         btnAppSettings.setOnClickListener {
@@ -76,4 +77,6 @@ class ProfileDoctor : Fragment() {
             logout()
         }
     }
+
+
 }

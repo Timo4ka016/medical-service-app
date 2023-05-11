@@ -1,105 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.RegistrationClientFragment">
+    android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="45dp"
-        android:src="#A1D2FF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="@string/welcome"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+    <include
+        android:id="@+id/my_header"
+        layout="@layout/app_header" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/my_header">
 
         <LinearLayout
-            android:id="@+id/registration_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#F5F5F5"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
-            android:paddingVertical="20dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:startIconDrawable="@drawable/ic_email">
+            android:paddingVertical="20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                app:endIconMode="clear_text"
-                app:startIconDrawable="@drawable/ic_email">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="20" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="@string/password"
-                app:endIconMode="password_toggle"
-                app:startIconDrawable="@drawable/ic_password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="textPassword"
-                    android:maxLength="30" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                android:text="@string/type_new_data"
+                android:textAlignment="center"
+                android:textColor="@color/txt_color_1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_firstname"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/firstname"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_person">
@@ -118,8 +61,8 @@
                 android:id="@+id/layout_lastname"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="61dp"
+                android:layout_marginTop="10dp"
                 android:hint="@string/lastname"
                 app:endIconMode="clear_text"
                 app:startIconDrawable="@drawable/ic_person">
@@ -134,11 +77,51 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_phoneNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/phone_number"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_phone">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="phone"
+                    android:maxLength="30" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginTop="10dp"
+                android:hint="@string/enter_a_new_password"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="textPassword"
+                    android:maxLength="30" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <RelativeLayout
                 android:id="@+id/relative_spinner_city"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/white">
 
                 <ImageView
@@ -157,25 +140,47 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="4dp"
                     android:layout_toEndOf="@+id/icon_spinner_city"
-                    android:entries="@array/cities" />
+                    android:entries="@array/edit_cities" />
 
             </RelativeLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:endIconMode="clear_text"
+                android:hint="@string/edit_profile"
+                app:counterEnabled="true"
+                app:counterMaxLength="250"
+                app:hintEnabled="true"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_white_border_1dp"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:minLines="2"
+                    android:maxLines="5" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_register"
+                android:id="@+id/btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="74dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="74dp"
                 android:backgroundTint="@color/accept_color"
-                android:text="@string/register"
+                android:text="@string/save"
                 android:textSize="16sp" />
 
         </LinearLayout>
 
-
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,12 +8,22 @@
         <item>Караганда</item>
     </string-array>
 
+    <string-array name="edit_cities">
+        <item>Выберите город</item>
+        <item>Астана</item>
+        <item>Алматы</item>
+        <item>Шымкент</item>
+        <item>Тараз</item>
+        <item>Караганда</item>
+    </string-array>
+
     <string-array name="cateogories">
-        <item>Категория 1</item>
-        <item>Категория 2</item>
-        <item>Категория 3</item>
-        <item>Категория 4</item>
-        <item>Категория 5</item>
+        <item>Выберите категорию</item>
+        <item>Стоматолог</item>
+        <item>Лор</item>
+        <item>Дерматолог</item>
+        <item>Невролог</item>
+        <item>Окулист</item>
     </string-array>
 
 </resources>

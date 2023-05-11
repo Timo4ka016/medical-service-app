@@ -13,7 +13,8 @@ public class AdDto {
     private String title;
     private String description;
     private Long price;
+    private Double rating;
     private String address;
-    private Category category;
+    private String category;
 
 }

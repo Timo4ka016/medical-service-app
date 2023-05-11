@@ -6,21 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import dts.app.med_app_android.R
 import dts.app.med_app_android.Retrofit.RetrofitClient
 import dts.app.med_app_android.Retrofit.RoleManager
 import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.Service.AuthService
-import dts.app.med_app_android.databinding.ProfileClientBinding
+import dts.app.med_app_android.databinding.ProfileDoctorBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
-class ProfileClient : Fragment() {
-    private lateinit var binding: ProfileClientBinding
+class ProfileDoctorFragment : Fragment() {
+    private lateinit var binding: ProfileDoctorBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var roleManager: RoleManager
     private lateinit var authService: AuthService
@@ -28,14 +26,13 @@ class ProfileClient : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = ProfileClientBinding.inflate(inflater, container, false)
+    ): View? {
+        binding = ProfileDoctorBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
         roleManager = RoleManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         authService = retrofit.create(AuthService::class.java)
         navigate()
-
         return binding.root
     }
 
@@ -64,10 +61,10 @@ class ProfileClient : Fragment() {
 
     private fun navigate() = with(binding) {
         btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.editProfileClient)
+            findNavController().navigate(R.id.editProfileDoctor)
         }
-        btnFavorite.setOnClickListener {
-            findNavController().navigate(R.id.addFragment)
+        btnMyAds.setOnClickListener {
+            findNavController().navigate(R.id.doctorAdsFragment)
         }
         btnAppSettings.setOnClickListener {
 
@@ -79,6 +76,4 @@ class ProfileClient : Fragment() {
             logout()
         }
     }
-
-
 }

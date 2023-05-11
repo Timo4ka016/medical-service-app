@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileDoctor">
+    tools:context=".Fragment.ProfileDoctorFragment">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_create_ad"
+        android:id="@+id/btn_my_ads"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="10dp"
@@ -97,7 +97,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/accept_color"
         android:drawableRight="@drawable/ic_right"
-        android:text="@string/create_ad"
+        android:text="@string/my_ads"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -128,7 +128,7 @@
         app:iconPadding="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_create_ad" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_my_ads" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_faq"

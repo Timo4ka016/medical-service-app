@@ -78,6 +78,14 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.doctorAds(user));
     }
 
+    @GetMapping("/ads/ad")
+    public ResponseEntity<AdDto> getDoctorAdById(
+            @AuthenticationPrincipal User user,
+            @RequestParam Long adId
+    ) {
+        return ResponseEntity.ok(doctorService.doctorAdById(user, adId));
+    }
+
     @DeleteMapping("/ads/ad/delete")
     public void deleteAd(
             @AuthenticationPrincipal User user,

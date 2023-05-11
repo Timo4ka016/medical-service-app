@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import dts.app.med_app_android.MainActivity
 import dts.app.med_app_android.Model.RegisterClientRequest
 import dts.app.med_app_android.Model.ReturnedToken
 import dts.app.med_app_android.R
@@ -23,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RegistrationClient : Fragment() {
+class RegistrationClientFragment : Fragment() {
     private lateinit var binding: RegistrationClientBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var roleManager: RoleManager

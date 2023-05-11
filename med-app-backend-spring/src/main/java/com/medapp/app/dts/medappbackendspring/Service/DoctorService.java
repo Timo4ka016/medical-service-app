@@ -133,6 +133,7 @@ public class DoctorService {
                 .price(createAdDto.getPrice())
                 .address(createAdDto.getAddress())
                 .city(myUser.getCity().getCity_name())
+                .rating(myUser.getRating())
                 .user(myUser)
                 .category(myCategory)
                 .build();
@@ -167,8 +168,23 @@ public class DoctorService {
 
     public List<AdDto> doctorAds(User user) {
         return userRepository.findById(user.getId())
-                .orElseThrow(() -> new NotFoundException("Доктор не найден.")).getAds()
-                .stream().map(ad -> mapper.map(ad, AdDto.class)).collect(Collectors.toList());
+                .orElseThrow(() -> new NotFoundException("Доктор не найден."))
+                .getAds()
+                .stream()
+                .map(ad -> {
+                    AdDto adDto = mapper.map(ad, AdDto.class);
+                    adDto.setCategory(ad.getCategory().getName());
+                    return adDto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public AdDto doctorAdById(User user, Long adId) {
+        Ad ad = adRepository.findById(adId)
+                .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
+        AdDto adDto = mapper.map(ad, AdDto.class);
+        adDto.setCategory(ad.getCategory().getName());
+        return adDto;
     }
 
     /*

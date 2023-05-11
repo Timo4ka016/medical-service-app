@@ -42,4 +42,13 @@
     <string name="save">Сохранить</string>
     <string name="type_new_data">Введите новые данные</string>
     <string name="create_ad">Создать объявление</string>
+    <string name="profile_description">Описание профиля</string>
+    <string name="your_ad">Ваше объявление</string>
+    <string name="cancel">Отмена</string>
+    <string name="ad_title">Заголовок объявления</string>
+    <string name="tell_us_about_your_service">Расскажите нам о вашей услуге</string>
+    <string name="short_name_ad">Короткое название объявления</string>
+    <string name="write_ad_description">Напишите описание вашего объявления</string>
+    <string name="Specify_the_address">Укажите адресс</string>
+    <string name="specify_the_price">Укажите цену</string>
 </resources>
