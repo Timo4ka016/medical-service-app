@@ -40,6 +40,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.registrationDoctor -> hideBottomNav()
                 R.id.editProfileClient -> hideBottomNav()
                 R.id.addFragment -> hideBottomNav()
+                R.id.adDetailsFragment -> hideBottomNav()
+                R.id.updateAdFragment -> hideBottomNav()
                 else -> showBottomNav()
             }
         }

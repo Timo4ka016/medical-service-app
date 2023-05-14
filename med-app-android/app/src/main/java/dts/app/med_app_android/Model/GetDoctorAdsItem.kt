@@ -1,12 +1,11 @@
 package dts.app.med_app_android.Model
 
-data class GetMyAdsRequestItem(
+data class GetDoctorAdsItem(
     val address: String,
     val category: String,
-    val description: String,
-    val city: String,
+    val doctor: DoctorMainInfo,
     val id: Int,
     val price: Int,
-    val rating: Double,
+    val rating: Any,
     val title: String
 )

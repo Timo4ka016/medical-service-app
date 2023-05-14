@@ -6,36 +6,42 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dts.app.med_app_android.Model.GetMyAdsRequestItem
+import dts.app.med_app_android.Model.GetDoctorAdsItem
 import dts.app.med_app_android.R
 import dts.app.med_app_android.databinding.AdCardBinding
 
 
-class DoctorAdsAdapter : ListAdapter<GetMyAdsRequestItem, DoctorAdsAdapter.Holder>(Comparator()) {
+class DoctorAdsAdapter(private val onAdClickListener: OnAdClickListener) : ListAdapter<GetDoctorAdsItem, DoctorAdsAdapter.Holder>(Comparator()) {
+
+    interface OnAdClickListener {
+        fun onAdClick(adId: Long)
+    }
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = AdCardBinding.bind(view)
 
-        fun bind(myAdsRequestItem: GetMyAdsRequestItem) = with(binding) {
-            txtTitle.text = myAdsRequestItem.title
-            txtAddress.text = myAdsRequestItem.address
-            txtPrice.text = myAdsRequestItem.price.toString() + " KZT"
-            txtRating.text = myAdsRequestItem.rating.toString()
-            txtCategory.text = myAdsRequestItem.category
+        fun bind(getDoctorAdsItem: GetDoctorAdsItem) = with(binding) {
+            txtTitle.text = getDoctorAdsItem.title
+            txtAddress.text = getDoctorAdsItem.address
+            txtPrice.text = getDoctorAdsItem.price.toString() + " KZT"
+
+            txtRating.text = getDoctorAdsItem.rating.toString()
+            txtCategory.text = getDoctorAdsItem.category
+            txtName.text = getDoctorAdsItem.doctor?.firstname + " " + getDoctorAdsItem?.doctor?.lastname
         }
     }
 
-    class Comparator : DiffUtil.ItemCallback<GetMyAdsRequestItem>() {
+    class Comparator : DiffUtil.ItemCallback<GetDoctorAdsItem>() {
         override fun areItemsTheSame(
-            oldItem: GetMyAdsRequestItem,
-            newItem: GetMyAdsRequestItem
+            oldItem: GetDoctorAdsItem,
+            newItem: GetDoctorAdsItem
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: GetMyAdsRequestItem,
-            newItem: GetMyAdsRequestItem
+            oldItem: GetDoctorAdsItem,
+            newItem: GetDoctorAdsItem
         ): Boolean {
             return oldItem == newItem
         }
@@ -48,5 +54,9 @@ class DoctorAdsAdapter : ListAdapter<GetMyAdsRequestItem, DoctorAdsAdapter.Holde
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            val adId = getItem(position).id
+            onAdClickListener.onAdClick(adId.toLong())
+        }
     }
 }

@@ -9,17 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dts.app.med_app_android.Model.CreateAdRequest
+import dts.app.med_app_android.Model.UpdateAdRequest
 import dts.app.med_app_android.R
 import dts.app.med_app_android.Retrofit.RetrofitClient
 import dts.app.med_app_android.Retrofit.TokenManager
 import dts.app.med_app_android.Service.DoctorService
-import dts.app.med_app_android.databinding.CreateAdBinding
+import dts.app.med_app_android.databinding.UpdateAdBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CreateAdFragment : Fragment() {
-    private lateinit var binding: CreateAdBinding
+class UpdateAdFragment : Fragment() {
+    private lateinit var binding: UpdateAdBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var doctorService: DoctorService
     override fun onCreateView(
@@ -27,53 +28,53 @@ class CreateAdFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = CreateAdBinding.inflate(inflater, container, false)
+        binding = UpdateAdBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         doctorService = retrofit.create(DoctorService::class.java)
+        val adId = arguments?.getLong("adId", -1L) ?: -1L
         header()
-        navigation()
-        createAdRequest()
+        updateAd(adId)
         return binding.root
     }
 
-    private fun header() = with(binding) {
-        myHeader.txtPageName.text = "Новое объявление"
-        myHeader.imgBack.setOnClickListener {
-            findNavController().navigate(R.id.profileDoctorFragment)
-        }
-    }
-
-    private fun createAdRequest() = with(binding) {
-        btnCreate.setOnClickListener {
+    private fun updateAd(adId: Long) = with(binding) {
+        btnUpdate.setOnClickListener {
             val selectedCategory = spinnerCategories.selectedItem.toString()
             if (selectedCategory == "Выберите категорию") {
                 Toast.makeText(requireContext(), "Выберите категорию", Toast.LENGTH_SHORT).show()
             } else {
                 val categoryId = spinnerCategories.selectedItemPosition.toLong()
                 val adRequest = requestBody() ?: return@setOnClickListener
-                val callCreateAd = doctorService.createAd(categoryId, adRequest)
-                callCreateAd.enqueue(object : Callback<Void> {
+                val callUpdateAd = doctorService.updateAd(adId, categoryId, adRequest)
+                callUpdateAd.enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         if (response.isSuccessful) {
-                            findNavController().navigate(R.id.profileDoctorFragment, null)
+                            findNavController().navigate(R.id.doctorAdsFragment, null)
                         } else {
                             Log.i(
                                 "Response Error",
-                                "Failed to create ad: ${response.code()} ${response.message()}"
+                                "Failed to update ad: ${response.code()} ${response.message()}"
                             )
                         }
                     }
 
                     override fun onFailure(call: Call<Void>, t: Throwable) {
-                        Log.i("Response Error", "Failed to create ad: ${t.message}")
+                        Log.i("Response Error", "Failed to update ad: ${t.message}")
                     }
                 })
             }
         }
     }
 
-    private fun requestBody(): CreateAdRequest? {
+    private fun header() = with(binding) {
+        myHeader.txtPageName.text = "Редактировать объявление"
+        myHeader.imgBack.setOnClickListener {
+            findNavController().navigate(R.id.profileDoctorFragment)
+        }
+    }
+
+    private fun requestBody(): UpdateAdRequest? {
         val title = binding.inputTitle.text?.trim().toString()
         val description = binding.inputDescription.text?.trim().toString()
         val address = binding.inputAddress.text?.trim().toString()
@@ -85,7 +86,7 @@ class CreateAdFragment : Fragment() {
         } else {
             val price: Long? = priceText.toLongOrNull()
 
-            return CreateAdRequest(
+            return UpdateAdRequest(
                 title = title,
                 description = description,
                 address = address,
@@ -94,12 +95,5 @@ class CreateAdFragment : Fragment() {
         }
     }
 
-    private fun navigation() = with(binding) {
-        myHeader.imgBack.setOnClickListener {
-            findNavController().navigate(R.id.profileDoctorFragment)
-        }
-        btnCancel.setOnClickListener {
-            findNavController().navigate(R.id.profileDoctorFragment)
-        }
-    }
+
 }

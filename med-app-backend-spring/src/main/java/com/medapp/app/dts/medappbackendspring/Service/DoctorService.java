@@ -2,7 +2,6 @@ package com.medapp.app.dts.medappbackendspring.Service;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.*;
-import com.medapp.app.dts.medappbackendspring.Enum.Role;
 import com.medapp.app.dts.medappbackendspring.Repository.*;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -166,24 +165,28 @@ public class DoctorService {
         adRepository.delete(ad);
     }
 
-    public List<AdDto> doctorAds(User user) {
+    public List<GetDoctorAds> doctorAds(User user) {
         return userRepository.findById(user.getId())
                 .orElseThrow(() -> new NotFoundException("Доктор не найден."))
                 .getAds()
                 .stream()
                 .map(ad -> {
-                    AdDto adDto = mapper.map(ad, AdDto.class);
-                    adDto.setCategory(ad.getCategory().getName());
-                    return adDto;
+                    GetDoctorAds requestBody = mapper.map(ad, GetDoctorAds.class);
+                    requestBody.setCategory(ad.getCategory().getName());
+                    DoctorMainInfo doctor = mapper.map(ad.getUser(), DoctorMainInfo.class);
+                    requestBody.setDoctor(doctor);
+                    return requestBody;
                 })
                 .collect(Collectors.toList());
     }
 
-    public AdDto doctorAdById(User user, Long adId) {
+    public GetDoctorAdById getDoctorAdById(User user, Long adId) {
         Ad ad = adRepository.findById(adId)
                 .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
-        AdDto adDto = mapper.map(ad, AdDto.class);
+        GetDoctorAdById adDto = mapper.map(ad, GetDoctorAdById.class);
         adDto.setCategory(ad.getCategory().getName());
+        DoctorMainInfo doctor = mapper.map(ad.getUser(), DoctorMainInfo.class);
+        adDto.setDoctor(doctor);
         return adDto;
     }
 

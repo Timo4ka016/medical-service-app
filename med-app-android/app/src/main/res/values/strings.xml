@@ -51,4 +51,10 @@
     <string name="write_ad_description">Напишите описание вашего объявления</string>
     <string name="Specify_the_address">Укажите адресс</string>
     <string name="specify_the_price">Укажите цену</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
+    <string name="description">Описание</string>
+    <string name="contacts">Контакты</string>
+    <string name="call">Позвонить</string>
+    <string name="in_favorite">В избранное</string>
 </resources>

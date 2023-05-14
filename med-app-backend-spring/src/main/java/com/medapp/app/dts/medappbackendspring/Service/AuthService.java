@@ -48,6 +48,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phoneNumber(request.getPhoneNumber())
                 .role(Role.USER_DOCTOR)
+                .rating(0.0)
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);

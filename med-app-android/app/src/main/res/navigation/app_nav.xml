@@ -69,5 +69,23 @@
         android:id="@+id/doctorAdsFragment"
         android:name="dts.app.med_app_android.Fragment.DoctorAdsFragment"
         android:label="DoctorAdsFragment"
-        tools:layout="@layout/doctor_ads"/>
+        tools:layout="@layout/doctor_ads">
+        <action
+            android:id="@+id/action_doctorAdsFragment_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adDetailsFragment"
+        android:name="dts.app.med_app_android.Fragment.AdDetailsFragment"
+        android:label="AdDetailsDoctorFragment"
+        tools:layout="@layout/ad_details">
+        <action
+            android:id="@+id/action_adDetailsFragment_to_updateAdFragment"
+            app:destination="@id/updateAdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateAdFragment"
+        android:name="dts.app.med_app_android.Fragment.UpdateAdFragment"
+        android:label="UpdateAdFragment"
+        tools:layout="@layout/update_ad"/>
 </navigation>

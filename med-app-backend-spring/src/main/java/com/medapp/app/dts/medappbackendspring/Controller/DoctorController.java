@@ -3,7 +3,6 @@ package com.medapp.app.dts.medappbackendspring.Controller;
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
-import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
 import com.medapp.app.dts.medappbackendspring.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,18 +71,18 @@ public class DoctorController {
     }
 
     @GetMapping("/ads")
-    public ResponseEntity<List<AdDto>> getDoctorAds(
+    public ResponseEntity<List<GetDoctorAds>> getDoctorAds(
             @AuthenticationPrincipal User user
     ) {
         return ResponseEntity.ok(doctorService.doctorAds(user));
     }
 
     @GetMapping("/ads/ad")
-    public ResponseEntity<AdDto> getDoctorAdById(
+    public ResponseEntity<GetDoctorAdById> getDoctorAdById(
             @AuthenticationPrincipal User user,
             @RequestParam Long adId
     ) {
-        return ResponseEntity.ok(doctorService.doctorAdById(user, adId));
+        return ResponseEntity.ok(doctorService.getDoctorAdById(user, adId));
     }
 
     @DeleteMapping("/ads/ad/delete")
