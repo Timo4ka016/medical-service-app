@@ -13,5 +13,9 @@ public class DoctorMainInfo {
     private String firstname;
     private String lastname;
     private String phoneNumber;
+    private Double rating;
+    private String city;
+
+
 
 }

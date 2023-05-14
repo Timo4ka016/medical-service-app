@@ -38,10 +38,10 @@ public class DoctorService {
      *  Начало сервиса профиля
      * */
 
-    public ProfileInfoForDoctor profileForDoctor(User user) {
+    public DoctorMainInfo profileForDoctor(User user) {
         User myUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new NotFoundException("Доктор не найден"));
-        return mapper.map(myUser, ProfileInfoForDoctor.class);
+        return mapper.map(myUser, DoctorMainInfo.class);
     }
 
     public void updateDoctor(User user, UpdateDoctorDto request) {

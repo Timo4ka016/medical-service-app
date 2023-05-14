@@ -32,6 +32,13 @@ interface DoctorService {
     fun deleteAd(@Query("adId") adId: Long): Call<Void>
 
     @PUT("api/doctor/ads/ad/update")
-    fun updateAd(@Query("adId") adId: Long, @Query("categoryId") categoryId: Long, @Body request: UpdateAdRequest): Call<Void>
+    fun updateAd(
+        @Query("adId") adId: Long,
+        @Query("categoryId") categoryId: Long,
+        @Body request: UpdateAdRequest
+    ): Call<Void>
+
+    @GET("api/doctor/profile")
+    fun profileDoctor(): Call<DoctorMainInfo>
 
 }

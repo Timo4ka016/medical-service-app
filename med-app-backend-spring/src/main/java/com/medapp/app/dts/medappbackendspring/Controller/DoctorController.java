@@ -23,7 +23,7 @@ public class DoctorController {
 
 
     @GetMapping("/profile")
-    public ResponseEntity<ProfileInfoForDoctor> profile(
+    public ResponseEntity<DoctorMainInfo> profile(
             @AuthenticationPrincipal User user
     ) {
         return ResponseEntity.ok(doctorService.profileForDoctor(user));

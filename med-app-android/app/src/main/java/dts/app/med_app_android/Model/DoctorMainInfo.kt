@@ -5,5 +5,7 @@ data class DoctorMainInfo(
     val email: String,
     val firstname: String,
     val lastname: String,
-    val phoneNumber: String
+    val phoneNumber: String,
+    val city: String,
+    val rating: Double
 )
