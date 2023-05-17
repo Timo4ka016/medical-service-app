@@ -16,17 +16,20 @@ import dts.app.med_app_android.R
 import dts.app.med_app_android.Retrofit.RetrofitClient
 import dts.app.med_app_android.Retrofit.RoleManager
 import dts.app.med_app_android.Retrofit.TokenManager
+import dts.app.med_app_android.Service.ClientService
 import dts.app.med_app_android.Service.DoctorService
 import dts.app.med_app_android.databinding.AdDetailsBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.create
 
 class AdDetailsFragment : Fragment() {
     private lateinit var binding: AdDetailsBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var roleManager: RoleManager
     private lateinit var doctorService: DoctorService
+    private lateinit var clientService: ClientService
     private lateinit var confirmDelete: Dialog
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,41 +42,51 @@ class AdDetailsFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         doctorService = retrofit.create(DoctorService::class.java)
+        clientService = retrofit.create(ClientService::class.java)
         val adId = arguments?.getLong("adId", -1L) ?: -1L
         if (adId != -1L) {
-            getAdDetailInfo(adId)
-            btnSettings(adId)
+            when (role()) {
+                "USER_DOCTOR" -> {
+                    getDoctorAdDetailInfo(adId)
+                    setupDoctorButtons(adId)
+                }
+                "USER_CLIENT" -> {
+                    getClientAdDetailInfo(adId)
+                    setupClientButtons()
+                }
+            }
         }
-
         return binding.root
     }
+    private fun role(): String {
+        return roleManager.getRole().toString()
+    }
 
-    private fun btnSettings(adId: Long) = with(binding) {
-        val role = roleManager.getRole()
-        when (role) {
-            "USER_DOCTOR" -> {
-                btnLeft.text = getString(R.string.edit)
-                btnLeft.backgroundTintList = resources.getColorStateList(R.color.change_color)
-                btnRight.text = getString(R.string.delete)
-                btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
-                btnLeft.setOnClickListener {
-                    val bundle = Bundle()
-                    bundle.putLong("adId", adId)
-                    findNavController().navigate(R.id.action_adDetailsFragment_to_updateAdFragment, bundle)
-                }
-                imgBack.setOnClickListener {
-                    findNavController().navigate(R.id.doctorAdsFragment)
-                }
-                btnRight.setOnClickListener {
-                    confirmDeleteDialog(adId)
-                }
-            }
-            "USER_CLIENT" -> {
-                btnLeft.text = getString(R.string.call)
-                btnLeft.backgroundTintList = resources.getColorStateList(R.color.green_color)
-                btnRight.text = getString(R.string.in_favorite)
-                btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
-            }
+    private fun setupDoctorButtons(adId: Long) = with(binding) {
+        btnLeft.text = getString(R.string.edit)
+        btnLeft.backgroundTintList = resources.getColorStateList(R.color.change_color)
+        btnRight.text = getString(R.string.delete)
+        btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
+        btnLeft.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putLong("adId", adId)
+            findNavController().navigate(R.id.action_adDetailsFragment_to_updateAdFragment, bundle)
+        }
+        imgBack.setOnClickListener {
+            findNavController().navigate(R.id.doctorAdsFragment)
+        }
+        btnRight.setOnClickListener {
+            confirmDeleteDialog(adId)
+        }
+    }
+
+    private fun setupClientButtons() = with(binding) {
+        btnLeft.text = getString(R.string.call)
+        btnLeft.backgroundTintList = resources.getColorStateList(R.color.green_color)
+        btnRight.text = getString(R.string.in_favorite)
+        btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
+        imgBack.setOnClickListener {
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 
@@ -114,7 +127,7 @@ class AdDetailsFragment : Fragment() {
 
     }
 
-    private fun getAdDetailInfo(adId: Long) = with(binding) {
+    private fun getDoctorAdDetailInfo(adId: Long) = with(binding) {
         val callGetAdDetailInfo = doctorService.getDoctorAdById(adId)
         callGetAdDetailInfo.enqueue(object : Callback<GetDoctorAdById> {
             override fun onResponse(
@@ -123,12 +136,47 @@ class AdDetailsFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val adDto = response.body()
+                    val rating = String.format("%.2f", adDto?.rating)
                     txtTitle.text = adDto?.title
                     txtDescription.text = adDto?.description
                     txtCity.text = adDto?.city
                     txtAddress.text = adDto?.address
                     txtCategory.text = adDto?.category
-                    txtRating.text = adDto?.rating.toString()
+                    txtRating.text = rating
+                    txtPrice.text = adDto?.price.toString() + " KZT"
+                    txtName.text = adDto?.doctor?.firstname + " " + adDto?.doctor?.lastname
+                    txtPhoneNumber.text = adDto?.doctor?.phoneNumber
+                    txtEmail.text = adDto?.doctor?.email
+                } else {
+                    Log.i(
+                        "Response Error",
+                        "Failed to get ad details: ${response.code()} ${response.message()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<GetDoctorAdById>, t: Throwable) {
+                Log.i("Response Error", "Failed to get ad details: ${t.message}")
+            }
+        })
+    }
+
+    private fun getClientAdDetailInfo(adId: Long) = with(binding) {
+        val callGetAdDetailInfo = clientService.getAdById(adId)
+        callGetAdDetailInfo.enqueue(object : Callback<GetDoctorAdById> {
+            override fun onResponse(
+                call: Call<GetDoctorAdById>,
+                response: Response<GetDoctorAdById>
+            ) {
+                if (response.isSuccessful) {
+                    val adDto = response.body()
+                    val rating = String.format("%.2f", adDto?.rating)
+                    txtTitle.text = adDto?.title
+                    txtDescription.text = adDto?.description
+                    txtCity.text = adDto?.city
+                    txtAddress.text = adDto?.address
+                    txtCategory.text = adDto?.category
+                    txtRating.text = rating
                     txtPrice.text = adDto?.price.toString() + " KZT"
                     txtName.text = adDto?.doctor?.firstname + " " + adDto?.doctor?.lastname
                     txtPhoneNumber.text = adDto?.doctor?.phoneNumber

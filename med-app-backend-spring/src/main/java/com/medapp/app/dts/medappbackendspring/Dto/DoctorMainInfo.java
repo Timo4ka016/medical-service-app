@@ -16,6 +16,4 @@ public class DoctorMainInfo {
     private Double rating;
     private String city;
 
-
-
 }

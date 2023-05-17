@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/third_color"
     tools:context=".Fragment.HomeFragment">
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/my_header"
         layout="@layout/app_header" />
 
     <TextView
@@ -20,7 +21,7 @@
         android:textColor="@color/txt_color_1"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/my_header" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
@@ -40,6 +41,7 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_1"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 app:cardCornerRadius="7dp">
@@ -71,38 +73,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="7dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:adjustViewBounds="true"
-                        android:background="@drawable/categories_corner"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/category_dentist"
-                        android:tint="#80000000" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/dentist"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+                android:id="@+id/card_2"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
@@ -135,6 +106,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_3"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
@@ -167,6 +139,40 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_4"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="7dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/categories_corner"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/category_dentist"
+                        android:tint="#80000000" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/dentist"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_5"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="10dp"
@@ -215,9 +221,17 @@
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:layout_width=""-->
-    <!--        android:layout_height=""-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_rec_ads"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_recomendations" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

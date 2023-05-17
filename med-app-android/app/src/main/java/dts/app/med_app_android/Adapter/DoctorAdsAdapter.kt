@@ -21,11 +21,12 @@ class DoctorAdsAdapter(private val onAdClickListener: OnAdClickListener) : ListA
         private val binding = AdCardBinding.bind(view)
 
         fun bind(getDoctorAdsItem: GetDoctorAdsItem) = with(binding) {
+            val rating = String.format("%.2f", getDoctorAdsItem.rating)
             txtTitle.text = getDoctorAdsItem.title
             txtAddress.text = getDoctorAdsItem.address
             txtPrice.text = getDoctorAdsItem.price.toString() + " KZT"
 
-            txtRating.text = getDoctorAdsItem.rating.toString()
+            txtRating.text = rating
             txtCategory.text = getDoctorAdsItem.category
             txtName.text = getDoctorAdsItem.doctor?.firstname + " " + getDoctorAdsItem?.doctor?.lastname
         }

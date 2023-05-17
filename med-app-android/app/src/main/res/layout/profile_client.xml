@@ -42,18 +42,6 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_phoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_email"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:text="Номер телефона: +7 707 707 07 07"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
@@ -89,16 +77,16 @@
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_favorite"
+        android:id="@+id/btn_my_feedbacks"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/accept_color"
-        android:drawableLeft="@drawable/ic_favorite"
+        android:drawableLeft="@drawable/ic_feedback"
         android:drawableRight="@drawable/ic_right"
-        android:text="@string/favorite"
+        android:text="@string/my_feedbacks"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -128,7 +116,7 @@
         app:iconPadding="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_favorite" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_my_feedbacks" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_faq"

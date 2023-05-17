@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         if (tokenManager.getToken() == null) {
             navigateToLogin()
         }
+//        bottomNavSettings()
         setupBottomNavWithCustomListener()
 
     }
@@ -47,6 +48,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun bottomNavSettings() {
+        val menu = binding.bottomNav.menu
+        val secondItem = menu.findItem(R.id.item_add)
+        when (role()) {
+            "USER_CLIENT" -> {
+                secondItem.title = "Мои отзывы"
+                secondItem.setIcon(R.drawable.ic_feedback)
+            }
+            "USER_DOCTOR" -> {
+                secondItem.title = "Избранное"
+            }
+        }
+    }
+
+    private fun role(): String {
+        return roleManager.getRole().toString()
+    }
+
     private fun navigateToLogin() {
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.login, true)
@@ -64,7 +83,13 @@ class MainActivity : AppCompatActivity() {
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.item_add -> {
-                        navController.navigate(R.id.addFragment)
+                        val role = roleManager.getRole()
+                        if (role != null) {
+                            when (role) {
+                                "USER_CLIENT" -> navController.navigate(R.id.adDetailsFragment)
+                                "USER_DOCTOR" -> navController.navigate(R.id.addFragment)
+                            }
+                        }
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.item_profile -> {

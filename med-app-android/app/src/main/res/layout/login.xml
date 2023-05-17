@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/third_color"
     tools:context=".Fragment.LoginFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -37,7 +38,7 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="10dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -46,26 +47,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="10dp"
-            android:paddingVertical="20dp"
-            android:background="#F5F5F5">
+            android:paddingVertical="20dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="9dp"
                 android:visibility="visible"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/ic_email"
-                tools:layout_editor_absoluteX="10dp">
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLength="20" />
 
@@ -76,19 +80,23 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
-                android:hint="@string/password"
+                android:layout_marginEnd="9dp"
                 android:visibility="visible"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="password_toggle"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_email"
-                app:startIconDrawable="@drawable/ic_password"
-                tools:layout_editor_absoluteX="10dp">
+                app:startIconDrawable="@drawable/ic_password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="30" />
 
@@ -106,13 +114,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layout_password" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_login"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="74dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginEnd="74dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/accept_color"
                 android:text="@string/login"
                 android:textSize="16sp"

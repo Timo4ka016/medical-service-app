@@ -44,7 +44,11 @@
         android:id="@+id/homeFragment"
         android:name="dts.app.med_app_android.Fragment.HomeFragment"
         android:label="home"
-        tools:layout="@layout/home" />
+        tools:layout="@layout/home" >
+        <action
+            android:id="@+id/action_homeFragment_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileClientFragment"
         android:name="dts.app.med_app_android.Fragment.ProfileClientFragment"

@@ -24,7 +24,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="100dp"
-            android:text="Привет Тимур"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,7 +36,6 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="Эл.почта: example@mail.ru"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -50,7 +48,6 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:text="Номер телефона: +7 707 707 07 07"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold" />

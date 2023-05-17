@@ -14,11 +14,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -225,48 +227,49 @@ public class ClientService {
      *  Начало сервиса рекомендаций
      * */
 
-    public List<RecomendationAds> getRecomendationAds(User client, int limit) {
-//        City clientCity = client.getCity();
-//
-//        // Получаем список докторов, имеющих объявления
-//        List<User> doctorsWithAds = userRepository.findAllByRoleAndAdsIsNotNull(Role.USER_DOCTOR);
-//
-//        // Фильтруем объявления по городу клиента и городу доктора, если они различаются
-//        List<RecomendationAds> ads = doctorsWithAds.stream()
-//                .filter(doctor -> !Objects.equals(doctor.getCity(), clientCity))
-//                .flatMap(doctor -> doctor.getAds().stream()
-//                        .filter(ad -> Objects.equals(ad.getUser().getCity(), clientCity))
-//                        .map(ad -> {
-//                            RecomendationAds recommendation = new RecomendationAds();
-//                            recommendation.setAd(ad);
-//                            recommendation.setDoctor(doctor);
-//                            return recommendation;
-//                        }))
-//                .collect(Collectors.toList());
-//
-//        // Фильтруем рекомендации по рейтингу доктора
-//        ads = ads.stream()
-//                .filter(ad -> ad.getDoctor().getRating() >= 3.6)
-//                .collect(Collectors.toList());
-//
-//        // Сортируем рекомендации по убыванию рейтинга доктора и выбираем первые `limit` рекомендаций
-//        ads.sort((ad1, ad2) -> Double.compare(ad2.getDoctor().getRating(), ad1.getDoctor().getRating()));
-//        ads = ads.subList(0, Math.min(limit, ads.size()));
 
-        return null;
+    public List<GetDoctorAds> getRecomendationAds(@AuthenticationPrincipal User user) {
+        User currentUser = userRepository.findById(user.getId()).orElseThrow();
+        String city = currentUser.getCity().getCity_name();
+        Double minRating = 3.0;
+        Double maxRating = 5.0;
+
+        List<Ad> ads = adRepository.findByCityAndRatingBetween(city, minRating, maxRating);
+        return ads.stream()
+                .map(ad -> {
+                    GetDoctorAds doctorAd = mapper.map(ad, GetDoctorAds.class);
+                    DoctorMainInfo doctorInfo = mapper.map(ad.getUser(), DoctorMainInfo.class);
+                    doctorAd.setDoctor(doctorInfo);
+                    doctorAd.setCategory(ad.getCategory().getName());
+                    return doctorAd;
+                })
+                .collect(Collectors.toList());
     }
 
-    public List<RecomendationAds> getAds(User client, String city) {
-        Specification<Ad> spec = Specification.where(null);
-        if (city != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("city"), city));
-        }
-        List<Ad> adList = adRepository.findAll(spec);
-        return adList.stream().map(
-                ad -> mapper.map(ad, RecomendationAds.class)).collect(Collectors.toList());
+    public GetDoctorAdById getAdById(User user, Long adId) {
+        Ad ad = adRepository.findById(adId)
+                .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
+        GetDoctorAdById adDto = mapper.map(ad, GetDoctorAdById.class);
+        adDto.setCategory(ad.getCategory().getName());
+        DoctorMainInfo doctor = mapper.map(ad.getUser(), DoctorMainInfo.class);
+        adDto.setDoctor(doctor);
+        return adDto;
     }
+
+    public List<GetDoctorAds> getAdByCategory(User user, Long categoryId) {
+        List<Ad> ads = adRepository.findByCategoryId(categoryId);
+        return  ads.stream().map(ad -> {
+            GetDoctorAds doctorAd = mapper.map(ad, GetDoctorAds.class);
+            DoctorMainInfo doctorInfo = mapper.map(ad.getUser(), DoctorMainInfo.class);
+            doctorAd.setDoctor(doctorInfo);
+            doctorAd.setCategory(ad.getCategory().getName());
+            return doctorAd;
+        })
+                .collect(Collectors.toList());
+    }
+
     /*
-     *  Конец сервиса рекомендаций
+     *  Конец сервиса объявлений
      * */
 
 

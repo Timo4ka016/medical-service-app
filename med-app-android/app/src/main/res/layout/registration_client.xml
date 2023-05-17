@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/third_color"
     tools:context=".Fragment.RegistrationClientFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -36,7 +37,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -45,7 +46,6 @@
             android:id="@+id/registration_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F5F5F5"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
@@ -60,15 +60,16 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLength="20" />
 
@@ -80,15 +81,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/password"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="password_toggle"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="30" />
 
@@ -100,15 +102,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/firstname"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/firstname"
                     android:inputType="textPersonName"
                     android:maxLength="25" />
 
@@ -120,15 +123,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="@string/lastname"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/lastname"
                     android:inputType="textPersonName"
                     android:maxLength="25" />
 
@@ -137,9 +141,9 @@
             <RelativeLayout
                 android:id="@+id/relative_spinner_city"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/white">
+                android:background="@drawable/spinner_white_background">
 
                 <ImageView
                     android:id="@+id/icon_spinner_city"
@@ -164,10 +168,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_register"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="74dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginEnd="74dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/accept_color"
                 android:text="@string/register"
                 android:textSize="16sp" />

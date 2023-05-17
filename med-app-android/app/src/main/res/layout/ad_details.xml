@@ -4,11 +4,13 @@
     android:scrollbars="none"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/third_color"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/third_color">
 
         <RelativeLayout
             android:id="@+id/ad_header"
@@ -45,7 +47,6 @@
                 android:maxLength="75"
                 android:maxLines="3"
                 android:minLines="2"
-                android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -57,7 +58,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Специалист: Тимур Дойрашев"
                 android:textColor="@color/white" />
 
             <TextView
@@ -72,7 +72,6 @@
                 android:backgroundTint="#54B7FF"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="3dp"
-                android:text="@string/dentist"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -90,7 +89,6 @@
                 android:drawablePadding="5dp"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="3dp"
-                android:text="4.5"
                 android:textColor="#FFC32D"
                 android:textSize="15sp"
                 app:drawableStartCompat="@drawable/ic_stars" />
@@ -108,7 +106,6 @@
                 android:backgroundTint="#78FF7D"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="3dp"
-                android:text="10000 KZT"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -142,7 +139,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/main_card_background_color"
                 android:paddingVertical="20dp">
 
                 <TextView
@@ -163,7 +159,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Город: Астана"
                     android:textColor="@color/txt_color_1"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +170,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:text="Адресс: Улица 30"
                     android:textColor="@color/txt_color_1"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +195,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/main_card_background_color"
                 android:paddingVertical="20dp">
 
                 <TextView
@@ -224,7 +217,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:lineSpacingExtra="3dp"
-                    android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis,"
                     android:textColor="@color/txt_color_1"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -250,7 +242,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/main_card_background_color"
                 android:paddingVertical="20dp">
 
                 <TextView
@@ -273,7 +264,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:lineSpacingExtra="3dp"
-                    android:text="Номер телефона: 87077070770"
                     android:textColor="@color/txt_color_1"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -288,7 +278,6 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:lineSpacingExtra="3dp"
-                    android:text="Эл.почта: example@mail.com"
                     android:textColor="@color/txt_color_1"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"

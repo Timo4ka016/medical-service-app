@@ -6,6 +6,6 @@ data class GetDoctorAdsItem(
     val doctor: DoctorMainInfo,
     val id: Int,
     val price: Int,
-    val rating: Any,
+    val rating: Double,
     val title: String
 )

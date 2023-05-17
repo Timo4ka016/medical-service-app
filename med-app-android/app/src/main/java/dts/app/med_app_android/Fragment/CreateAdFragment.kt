@@ -38,6 +38,10 @@ class CreateAdFragment : Fragment() {
     }
 
     private fun header() = with(binding) {
+        myHeader.relativeHeader.visibility = View.GONE
+        myHeader.imgFavorite.visibility = View.GONE
+        myHeader.txtPageName.visibility = View.VISIBLE
+        myHeader.imgBack.visibility = View.VISIBLE
         myHeader.txtPageName.text = "Новое объявление"
         myHeader.imgBack.setOnClickListener {
             findNavController().navigate(R.id.profileDoctorFragment)

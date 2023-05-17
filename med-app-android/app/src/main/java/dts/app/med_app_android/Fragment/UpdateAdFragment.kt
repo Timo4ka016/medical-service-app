@@ -35,6 +35,7 @@ class UpdateAdFragment : Fragment() {
         val adId = arguments?.getLong("adId", -1L) ?: -1L
         header()
         updateAd(adId)
+        navigation()
         return binding.root
     }
 
@@ -68,9 +69,12 @@ class UpdateAdFragment : Fragment() {
     }
 
     private fun header() = with(binding) {
+        myHeader.relativeHeader.visibility = View.GONE
+        myHeader.imgFavorite.visibility = View.GONE
+        myHeader.txtPageName.visibility = View.VISIBLE
         myHeader.txtPageName.text = "Редактировать объявление"
         myHeader.imgBack.setOnClickListener {
-            findNavController().navigate(R.id.profileDoctorFragment)
+            findNavController().navigate(R.id.adDetailsFragment)
         }
     }
 
@@ -92,6 +96,12 @@ class UpdateAdFragment : Fragment() {
                 address = address,
                 price = price ?: 0L
             )
+        }
+    }
+
+    private fun navigation() = with(binding) {
+        btnCancel.setOnClickListener {
+            findNavController().navigate(R.id.profileDoctorFragment)
         }
     }
 

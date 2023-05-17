@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/third_color"
     tools:context=".Fragment.RegistrationDoctorFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -35,7 +36,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -44,11 +45,10 @@
             android:id="@+id/registration_first_part"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F5F5F5"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -59,17 +59,18 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/email"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:maxLength="20" />
 
@@ -80,18 +81,19 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/password"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="password_toggle"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLength="30" />
 
@@ -102,18 +104,19 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/firstname"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/firstname"
                     android:inputType="textPersonName"
                     android:maxLength="25" />
 
@@ -124,18 +127,19 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/lastname"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/lastname"
                     android:inputType="textPersonName"
                     android:maxLength="25" />
 
@@ -146,18 +150,19 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/phone_number"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
+                app:hintEnabled="false"
                 app:startIconDrawable="@drawable/ic_phone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_phoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:hint="@string/phone_number"
                     android:inputType="phone"
                     android:maxLength="30" />
 
@@ -166,10 +171,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_continue"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="74dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:layout_marginEnd="74dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/accept_color"
                 android:text="@string/next"
                 android:textSize="16sp"
@@ -181,11 +186,10 @@
             android:id="@+id/registration_second_part"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F5F5F5"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingVertical="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registration_first_part">
@@ -193,8 +197,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:paddingStart="8dp"
                 android:text="@string/select_specializations"
                 android:textColor="@color/black"
@@ -203,8 +207,8 @@
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
                 app:flexWrap="wrap">
 
                 <com.google.android.material.button.MaterialButton
@@ -253,9 +257,9 @@
                 android:id="@+id/relative_spinner_city"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/border_1dp">
 
                 <ImageView
@@ -281,11 +285,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_back"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="74dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="74dp"
-                android:backgroundTint="@color/accept_color"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/cancel_color"
                 android:text="@string/back"
                 android:textSize="16sp"
                 android:visibility="visible" />
@@ -293,10 +297,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_register"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="74dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="74dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/accept_color"
                 android:text="@string/register"
                 android:textSize="16sp"

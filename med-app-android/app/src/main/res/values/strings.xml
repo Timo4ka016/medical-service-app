@@ -57,4 +57,5 @@
     <string name="contacts">Контакты</string>
     <string name="call">Позвонить</string>
     <string name="in_favorite">В избранное</string>
+    <string name="my_feedbacks">Мои отзывы</string>
 </resources>

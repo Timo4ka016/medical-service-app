@@ -64,7 +64,7 @@ class ProfileClientFragment : Fragment() {
         btnEditProfile.setOnClickListener {
             findNavController().navigate(R.id.editProfileClient)
         }
-        btnFavorite.setOnClickListener {
+        btnMyFeedbacks.setOnClickListener {
             findNavController().navigate(R.id.addFragment)
         }
         btnAppSettings.setOnClickListener {

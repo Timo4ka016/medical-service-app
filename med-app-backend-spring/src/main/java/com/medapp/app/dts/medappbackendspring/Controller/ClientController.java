@@ -2,7 +2,9 @@ package com.medapp.app.dts.medappbackendspring.Controller;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
+import com.medapp.app.dts.medappbackendspring.Entity.NotFoundException;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
+import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
 import com.medapp.app.dts.medappbackendspring.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ClientController {
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/profile")
     public ProfileInfoForClient profileForClient(
@@ -86,18 +90,38 @@ public class ClientController {
         clientService.addCityToClient(user, cityId);
     }
 
+//    @GetMapping("/recommendations")
+//    public ResponseEntity<List<GetDoctorAds>> getRecommendations(
+//            @AuthenticationPrincipal User client,
+//            String city,
+//            Double rating_min,
+//            Double rating_max) {
+//        User myUser = userRepository.findById(client.getId())
+//                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
+//        city = myUser.getCity().getCity_name();
+//        rating_min = 3D;
+//        rating_max = 5D;
+//        List<GetDoctorAds> recommendations = clientService.getRecomendationAds(client);
+//        return ResponseEntity.ok(recommendations);
+//    }
+
     @GetMapping("/recommendations")
-    public ResponseEntity<List<RecomendationAds>> getRecommendations(@AuthenticationPrincipal User client,
-                                                                     @RequestParam(defaultValue = "10") int limit) {
-        List<RecomendationAds> recommendations = clientService.getRecomendationAds(client, limit);
-        return ResponseEntity.ok(recommendations);
+    public List<GetDoctorAds> getRecommendations(@AuthenticationPrincipal User user) {
+        return clientService.getRecomendationAds(user);
     }
 
-    @GetMapping("/my-ads")
-    public ResponseEntity<List<RecomendationAds>> getMyAds(@AuthenticationPrincipal User client,
-                                                                     @RequestParam String city) {
-        List<RecomendationAds> recommendations = clientService.getAds(client, city);
-        return ResponseEntity.ok(recommendations);
+    @GetMapping("/ads/ad/category")
+    public List<GetDoctorAds> getAdByCategory(@AuthenticationPrincipal User user,
+                                              @RequestParam Long categoryId) {
+        return clientService.getAdByCategory(user, categoryId);
+    }
+
+    @GetMapping("/ads/ad")
+    public ResponseEntity<GetDoctorAdById> getDoctorAdById(
+            @AuthenticationPrincipal User user,
+            @RequestParam Long adId
+    ) {
+        return ResponseEntity.ok(clientService.getAdById(user, adId));
     }
 
 }
