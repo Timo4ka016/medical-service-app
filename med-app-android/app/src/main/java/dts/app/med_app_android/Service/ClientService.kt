@@ -1,5 +1,6 @@
 package dts.app.med_app_android.Service
 
+import dts.app.med_app_android.Model.ClientMainInfo
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.Model.GetDoctorAdsItem
 import dts.app.med_app_android.Model.UpdateClientRequest
@@ -7,6 +8,9 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ClientService {
+
+    @GET("api/client/profile")
+    fun profileClient(): Call<ClientMainInfo>
 
     @PUT("api/client/city/add")
     @FormUrlEncoded

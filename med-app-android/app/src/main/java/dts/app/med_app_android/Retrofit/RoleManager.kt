@@ -23,5 +23,4 @@ class RoleManager(context: Context) {
         editor.remove(USER_ROLE)
         editor.apply()
     }
-
 }

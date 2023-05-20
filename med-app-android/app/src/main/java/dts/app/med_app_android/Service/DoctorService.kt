@@ -40,5 +40,4 @@ interface DoctorService {
 
     @GET("api/doctor/profile")
     fun profileDoctor(): Call<DoctorMainInfo>
-
 }

@@ -10,8 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileInfoForClient {
+    private Long id;
     private String firstname;
     private String lastname;
-    private String phoneNumber;
+    private String email;
 
 }

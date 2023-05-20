@@ -56,6 +56,11 @@ public class ClientController {
         clientService.updateFeedback(user, feedbackId, feedback);
     }
 
+    @GetMapping("/feedback/get-all")
+    public ResponseEntity<List<Feedback>> getMyFeedbacks(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(clientService.getMyFeedbacks(user));
+    }
+
     @DeleteMapping("/feedback/delete")
     public void deleteFeedback(
             @AuthenticationPrincipal User user,
@@ -89,21 +94,6 @@ public class ClientController {
     ) {
         clientService.addCityToClient(user, cityId);
     }
-
-//    @GetMapping("/recommendations")
-//    public ResponseEntity<List<GetDoctorAds>> getRecommendations(
-//            @AuthenticationPrincipal User client,
-//            String city,
-//            Double rating_min,
-//            Double rating_max) {
-//        User myUser = userRepository.findById(client.getId())
-//                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
-//        city = myUser.getCity().getCity_name();
-//        rating_min = 3D;
-//        rating_max = 5D;
-//        List<GetDoctorAds> recommendations = clientService.getRecomendationAds(client);
-//        return ResponseEntity.ok(recommendations);
-//    }
 
     @GetMapping("/recommendations")
     public List<GetDoctorAds> getRecommendations(@AuthenticationPrincipal User user) {

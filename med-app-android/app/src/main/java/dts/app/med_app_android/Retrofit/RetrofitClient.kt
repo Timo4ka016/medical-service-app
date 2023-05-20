@@ -9,16 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     private var retrofit: Retrofit? = null
-
     fun getRetrofitClient(tokenManager: TokenManager): Retrofit {
         if (retrofit == null) {
             val httpClient = OkHttpClient.Builder()
-
-
             httpClient.addInterceptor { chain ->
                 val originalRequest = chain.request()
                 val builder = originalRequest.newBuilder()
-
 
                 if (originalRequest.header("No-Auth") == null) {
                     val token = tokenManager.getToken().toString()
@@ -27,11 +23,9 @@ object RetrofitClient {
                         Log.d("RetrofitClient", "Token: $token")
                     }
                 }
-
                 val newRequest = builder.build()
                 chain.proceed(newRequest)
             }
-
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -40,5 +34,4 @@ object RetrofitClient {
         }
         return retrofit!!
     }
-
 }

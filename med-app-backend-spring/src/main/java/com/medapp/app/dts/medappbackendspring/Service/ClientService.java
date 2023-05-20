@@ -17,9 +17,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -171,6 +169,13 @@ public class ClientService {
         adRepository.saveAll(doctorAds);
 
 
+    }
+
+    public List<Feedback> getMyFeedbacks(User user) {
+        User myUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
+        List<Feedback> myFeedbacks = myUser.getGivenFeedbacks();
+        return myFeedbacks;
     }
 
     public void deleteFeedback(User user, Long feedbackId) {

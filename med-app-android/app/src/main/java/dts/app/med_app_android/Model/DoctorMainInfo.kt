@@ -1,7 +1,7 @@
 package dts.app.med_app_android.Model
 
 data class DoctorMainInfo(
-    val id: Int,
+    val id: Long,
     val email: String,
     val firstname: String,
     val lastname: String,

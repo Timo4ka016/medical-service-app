@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileInfoForDoctor {
+    private Long id;
     private String firstname;
     private String lastname;
     private String phoneNumber;

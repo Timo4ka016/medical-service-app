@@ -22,4 +22,5 @@ public class Feedback {
     @JsonIgnore
     @ManyToOne
     private User doctor;
+    
 }

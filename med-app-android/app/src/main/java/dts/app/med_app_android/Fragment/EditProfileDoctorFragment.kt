@@ -75,6 +75,9 @@ class EditProfileDoctorFragment : Fragment() {
     }
 
     private fun header() = with(binding) {
+        myHeader.relativeHeader.visibility = View.GONE
+        myHeader.imgFavorite.visibility = View.GONE
+        myHeader.txtPageName.visibility = View.VISIBLE
         myHeader.txtPageName.text = "Редактировать профиль"
     }
 

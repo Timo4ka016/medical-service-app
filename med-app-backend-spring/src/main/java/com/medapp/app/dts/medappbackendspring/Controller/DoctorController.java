@@ -37,12 +37,12 @@ public class DoctorController {
         doctorService.updateDoctor(user, request);
     }
 
-    @PutMapping("/category/add")
-    public void addCategoryToDoctor(
-            @AuthenticationPrincipal User user,
-            @RequestBody List<Long> categoryIds) {
-        doctorService.addCategoryToDoctor(user, categoryIds);
-    }
+        @PutMapping("/category/add")
+        public void addCategoryToDoctor(
+                @AuthenticationPrincipal User user,
+                @RequestBody List<Long> categoryIds) {
+            doctorService.addCategoryToDoctor(user, categoryIds);
+        }
 
     @PutMapping("/category/remove")
     public void removeCategoryToDoctor(

@@ -10,7 +10,6 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
         android:background="@drawable/profile_header_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="120dp"
             android:text="Привет Тимур"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -50,6 +49,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="75dp"
             android:layout_marginEnd="35dp"
+            android:layout_marginBottom="20dp"
             android:elevation="10dp"
             android:src="#D9D9D9" />
 
