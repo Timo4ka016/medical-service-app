@@ -1,0 +1,5 @@
+create category: Стоматолог, Лор, Дерматолог, Окулист, Невролог.
+create city: Астана, Алматы, Шымкент, Тараз, Караганда.
+create doctor: doctor@mail.com, doctor.
+create client: client@mail.com, client.
+create admin: admin@mail.com, admin.

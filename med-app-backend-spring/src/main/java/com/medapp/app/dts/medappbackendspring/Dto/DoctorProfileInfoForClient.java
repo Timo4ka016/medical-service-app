@@ -17,10 +17,10 @@ public class DoctorProfileInfoForClient {
     private Long id;
     private String firstname;
     private String lastname;
+    private String city;
+    private String email;
     private String description;
     private Long phoneNumber;
-    private List<Category> categories;
-    private List<AdDto> ads;
-    private List<Feedback> receivedFeedbacks;
+    private List<FeedbackDto> receivedFeedbacks;
 
 }

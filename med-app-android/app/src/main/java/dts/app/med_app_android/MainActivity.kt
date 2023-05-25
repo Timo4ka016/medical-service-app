@@ -27,10 +27,11 @@ class MainActivity : AppCompatActivity() {
         bottomNavViewSettings()
         if (tokenManager.getToken() == null) {
             navigateToLogin()
+        } else {
+            updateBottomNavMenu()
         }
-//        bottomNavSettings()
         setupBottomNavWithCustomListener()
-
+        invalidateOptionsMenu()
     }
 
     private fun bottomNavViewSettings() {
@@ -44,20 +45,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.adDetailsFragment -> hideBottomNav()
                 R.id.updateAdFragment -> hideBottomNav()
                 else -> showBottomNav()
-            }
-        }
-    }
-
-    private fun bottomNavSettings() {
-        val menu = binding.bottomNav.menu
-        val secondItem = menu.findItem(R.id.item_add)
-        when (role()) {
-            "USER_CLIENT" -> {
-                secondItem.title = "Мои отзывы"
-                secondItem.setIcon(R.drawable.ic_feedback)
-            }
-            "USER_DOCTOR" -> {
-                secondItem.title = "Избранное"
             }
         }
     }
@@ -86,8 +73,14 @@ class MainActivity : AppCompatActivity() {
                         val role = roleManager.getRole()
                         if (role != null) {
                             when (role) {
-                                "USER_CLIENT" -> navController.navigate(R.id.adDetailsFragment)
-                                "USER_DOCTOR" -> navController.navigate(R.id.addFragment)
+                                "USER_CLIENT" -> {
+                                    navController.navigate(R.id.adDetailsFragment)
+
+                                }
+                                "USER_DOCTOR" -> {
+                                    navController.navigate(R.id.addFragment)
+
+                                }
                             }
                         }
                         return@OnNavigationItemSelectedListener true
@@ -106,6 +99,26 @@ class MainActivity : AppCompatActivity() {
                 false
             }
         bottomNav.setOnItemSelectedListener(customOnNavigationItemSelectedListener)
+    }
+
+    private fun updateBottomNavMenu() {
+        val role = roleManager.getRole()
+        if (role != null) {
+            when (role) {
+                "USER_CLIENT" -> {
+                    binding.bottomNav.menu.findItem(R.id.item_add)?.apply {
+                        title = "Избранное"
+                        setIcon(R.drawable.ic_favorite)
+                    }
+                }
+                "USER_DOCTOR" -> {
+                    binding.bottomNav.menu.findItem(R.id.item_add)?.apply {
+                        title = "Создать"
+                        setIcon(R.drawable.ic_add)
+                    }
+                }
+            }
+        }
     }
 
     private fun hideBottomNav() {

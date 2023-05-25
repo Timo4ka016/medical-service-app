@@ -6,6 +6,8 @@ data class DoctorMainInfo(
     val firstname: String,
     val lastname: String,
     val phoneNumber: String,
+    val description: String,
     val city: String,
-    val rating: Double
+    val rating: Double,
+    val receivedFeedbacks: List<FeedbackDto>
 )

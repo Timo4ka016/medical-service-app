@@ -1,6 +1,9 @@
 package dts.app.med_app_android.Service
 
 import dts.app.med_app_android.Model.ClientMainInfo
+import dts.app.med_app_android.Model.DoctorProfileInfoForClient
+import dts.app.med_app_android.Model.FeedbackDto
+import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.Model.GetDoctorAdsItem
 import dts.app.med_app_android.Model.UpdateClientRequest
@@ -27,5 +30,11 @@ interface ClientService {
 
     @GET("api/client/ads/ad/category")
     fun getAdByCategory(@Query("categoryId") categoryId: Long): Call<List<GetDoctorAdsItem>>
+
+    @GET("api/client/selected-doctor")
+    fun getDoctorProfileInfoForClient(@Query("doctorId") doctorId: Long): Call<DoctorProfileInfoForClient>
+
+    @POST("api/client/feedback/create")
+    fun createFeedback(@Query("adId") adId: Long, @Body feedback: FeedbackModel): Call<Void>
 
 }

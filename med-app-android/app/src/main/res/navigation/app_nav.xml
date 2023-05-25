@@ -86,10 +86,22 @@
         <action
             android:id="@+id/action_adDetailsFragment_to_updateAdFragment"
             app:destination="@id/updateAdFragment" />
+        <action
+            android:id="@+id/action_adDetailsFragment_to_doctorProfileDetailsFragment"
+            app:destination="@id/doctorProfileDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateAdFragment"
         android:name="dts.app.med_app_android.Fragment.UpdateAdFragment"
         android:label="UpdateAdFragment"
         tools:layout="@layout/update_ad"/>
+    <fragment
+        android:id="@+id/clientFeedbacksFragment"
+        android:name="dts.app.med_app_android.Fragment.ClientFeedbacksFragment"
+        android:label="ClientFeedbacksFragment" />
+    <fragment
+        android:id="@+id/doctorProfileDetailsFragment"
+        android:name="dts.app.med_app_android.Fragment.DoctorProfileDetailsFragment"
+        android:label="DoctorProfileDetailsFragment"
+        tools:layout="@layout/doctor_profile_details"/>
 </navigation>

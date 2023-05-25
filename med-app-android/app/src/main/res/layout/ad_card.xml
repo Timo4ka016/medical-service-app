@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     android:layout_marginVertical="10dp"
     android:layout_marginHorizontal="10dp"
     app:cardElevation="0dp"
@@ -89,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/ad_card_element_background"
             android:backgroundTint="#FFF9DA"
             android:drawablePadding="5dp"
@@ -98,6 +99,7 @@
             android:textColor="#FFC32D"
             android:textSize="13sp"
             app:drawableStartCompat="@drawable/ic_stars"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 

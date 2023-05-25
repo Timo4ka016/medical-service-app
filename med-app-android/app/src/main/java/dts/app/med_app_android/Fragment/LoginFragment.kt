@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
 import dts.app.med_app_android.Model.AuthenticationRequest
 import dts.app.med_app_android.Model.ReturnedToken
@@ -30,6 +31,7 @@ class LoginFragment : Fragment() {
     private lateinit var roleManager: RoleManager
     private lateinit var authService: AuthService
     private lateinit var userTypeDialog: Dialog
+    private var bottomNav: BottomNavigationView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +43,7 @@ class LoginFragment : Fragment() {
         roleManager = RoleManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         authService = retrofit.create(AuthService::class.java)
+        bottomNav = requireActivity().findViewById(R.id.bottom_nav)
         login()
         showUserType()
         return binding.root
@@ -69,6 +72,22 @@ class LoginFragment : Fragment() {
         userTypeDialog.show()
     }
 
+    private fun bottomItem(role: String) {
+        bottomNav?.menu?.findItem(R.id.item_add)?.apply {
+            when (role) {
+                "USER_CLIENT" -> {
+                    title = "Избранное"
+                    setIcon(R.drawable.ic_favorite)
+                }
+
+                "USER_DOCTOR" -> {
+                    title = "Создать"
+                    setIcon(R.drawable.ic_add)
+                }
+            }
+        }
+    }
+
     private fun login() = with(binding) {
         buttonLogin.setOnClickListener {
             val callAuth = authService.authenticate(authenticationData())
@@ -82,6 +101,7 @@ class LoginFragment : Fragment() {
                         val token = response.body()?.token
                         roleManager.saveRole(role!!)
                         tokenManager.saveToken(token!!)
+                        bottomItem(role)
                         findNavController().navigate(R.id.homeFragment, null)
                     } else {
                         Log.i(

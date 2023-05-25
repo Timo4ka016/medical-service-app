@@ -8,9 +8,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import dts.app.med_app_android.Adapter.ClientFeedbacksAdapter
+import dts.app.med_app_android.Model.CreateAdRequest
+import dts.app.med_app_android.Model.FeedbackDto
+import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.R
 import dts.app.med_app_android.Retrofit.RetrofitClient
@@ -31,6 +40,9 @@ class AdDetailsFragment : Fragment() {
     private lateinit var doctorService: DoctorService
     private lateinit var clientService: ClientService
     private lateinit var confirmDelete: Dialog
+    private lateinit var createFeedback: Dialog
+    private lateinit var adapter: ClientFeedbacksAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,9 +50,13 @@ class AdDetailsFragment : Fragment() {
     ): View {
         binding = AdDetailsBinding.inflate(inflater, container, false)
         confirmDelete = Dialog(requireContext())
+        createFeedback = Dialog(requireContext())
         roleManager = RoleManager(requireContext())
         tokenManager = TokenManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
+        adapter = ClientFeedbacksAdapter()
+        binding.rcFeedbacks.layoutManager = LinearLayoutManager(requireContext())
+        binding.rcFeedbacks.adapter = adapter
         doctorService = retrofit.create(DoctorService::class.java)
         clientService = retrofit.create(ClientService::class.java)
         val adId = arguments?.getLong("adId", -1L) ?: -1L
@@ -50,24 +66,26 @@ class AdDetailsFragment : Fragment() {
                     getDoctorAdDetailInfo(adId)
                     setupDoctorButtons(adId)
                 }
+
                 "USER_CLIENT" -> {
                     getClientAdDetailInfo(adId)
-                    setupClientButtons()
+                    setupClientButtons(adId)
                 }
             }
         }
         return binding.root
     }
+
     private fun role(): String {
         return roleManager.getRole().toString()
     }
 
     private fun setupDoctorButtons(adId: Long) = with(binding) {
-        btnLeft.text = getString(R.string.edit)
-        btnLeft.backgroundTintList = resources.getColorStateList(R.color.change_color)
-        btnRight.text = getString(R.string.delete)
-        btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
-        btnLeft.setOnClickListener {
+        btnLeft2.text = getString(R.string.edit)
+        btnLeft2.backgroundTintList = resources.getColorStateList(R.color.change_color)
+        btnRight2.text = getString(R.string.delete)
+        btnRight2.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
+        btnLeft2.setOnClickListener {
             val bundle = Bundle()
             bundle.putLong("adId", adId)
             findNavController().navigate(R.id.action_adDetailsFragment_to_updateAdFragment, bundle)
@@ -75,19 +93,31 @@ class AdDetailsFragment : Fragment() {
         imgBack.setOnClickListener {
             findNavController().navigate(R.id.doctorAdsFragment)
         }
-        btnRight.setOnClickListener {
+        btnRight2.setOnClickListener {
             confirmDeleteDialog(adId)
         }
     }
 
-    private fun setupClientButtons() = with(binding) {
-        btnLeft.text = getString(R.string.call)
-        btnLeft.backgroundTintList = resources.getColorStateList(R.color.green_color)
-        btnRight.text = getString(R.string.in_favorite)
-        btnRight.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
+    private fun setupClientButtons(adId: Long) = with(binding) {
+        btnLeft2.text = getString(R.string.call)
+        btnLeft2.backgroundTintList = resources.getColorStateList(R.color.green_color)
+        btnRight2.text = getString(R.string.in_favorite)
+        btnRight2.backgroundTintList = resources.getColorStateList(R.color.cancel_color)
         imgBack.setOnClickListener {
             findNavController().navigate(R.id.homeFragment)
         }
+        btnFeedbackDialog.setOnClickListener {
+            createFeedbackDialog(adId)
+        }
+        btnGoProfile.visibility = View.VISIBLE
+    }
+
+    private fun createFeedbackDialog(adId: Long) {
+        createFeedback.setContentView(R.layout.create_feedback)
+        createFeedback.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        createFeedback.setCancelable(true)
+        createFeedback(adId)
+        createFeedback.show()
     }
 
     private fun confirmDeleteDialog(adId: Long) {
@@ -147,6 +177,8 @@ class AdDetailsFragment : Fragment() {
                     txtName.text = adDto?.doctor?.firstname + " " + adDto?.doctor?.lastname
                     txtPhoneNumber.text = adDto?.doctor?.phoneNumber
                     txtEmail.text = adDto?.doctor?.email
+                    adapter.submitList(adDto?.doctor?.receivedFeedbacks)
+                    Log.i("Response Good", response.body().toString())
                 } else {
                     Log.i(
                         "Response Error",
@@ -159,6 +191,46 @@ class AdDetailsFragment : Fragment() {
                 Log.i("Response Error", "Failed to get ad details: ${t.message}")
             }
         })
+    }
+
+    private fun createFeedback(adId: Long) = with(binding) {
+        val btnSend = createFeedback.findViewById<MaterialButton>(R.id.btn_send)
+        btnSend.setOnClickListener {
+            val body = createFeedbackBody() ?: return@setOnClickListener
+            val callCreateFeedback = clientService.createFeedback(adId, body)
+            callCreateFeedback.enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(requireContext(), "Спасибо за отзыв", Toast.LENGTH_SHORT)
+                            .show()
+                        createFeedback.dismiss()
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
+
+    private fun createFeedbackBody(): FeedbackModel? {
+        val ratingBar = createFeedback.findViewById<RatingBar>(R.id.rb_feedback_rating)
+        val inputFeedbackText =
+            createFeedback.findViewById<TextInputEditText>(R.id.input_feedback_text)
+        val ratingText = ratingBar.rating.toString()
+        val text = inputFeedbackText.text?.trim().toString()
+        if (text.isEmpty() || ratingText.isEmpty()) {
+            Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+            return null
+        } else {
+            val rating: Double = ratingText.toDouble()
+
+            return FeedbackModel(
+                text = text,
+                rating = rating
+            )
+        }
     }
 
     private fun getClientAdDetailInfo(adId: Long) = with(binding) {
@@ -181,6 +253,17 @@ class AdDetailsFragment : Fragment() {
                     txtName.text = adDto?.doctor?.firstname + " " + adDto?.doctor?.lastname
                     txtPhoneNumber.text = adDto?.doctor?.phoneNumber
                     txtEmail.text = adDto?.doctor?.email
+                    adapter.submitList(adDto?.doctor?.receivedFeedbacks)
+                    Log.i("Response Good", response.body().toString())
+                    btnGoProfile.setOnClickListener {
+                        val doctorId = adDto?.doctor?.id
+                        val bundle = Bundle()
+                        bundle.putLong("doctorId", doctorId!!)
+                        findNavController().navigate(
+                            R.id.action_adDetailsFragment_to_doctorProfileDetailsFragment,
+                            bundle
+                        )
+                    }
                 } else {
                     Log.i(
                         "Response Error",
@@ -194,5 +277,7 @@ class AdDetailsFragment : Fragment() {
             }
         })
     }
+
+
 
 }
