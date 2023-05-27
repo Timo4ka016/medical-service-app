@@ -3,6 +3,10 @@ package com.medapp.app.dts.medappbackendspring.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @Getter
 @Setter

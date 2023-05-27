@@ -1,8 +1,8 @@
 package dts.app.med_app_android.Model
 
-data class FeedbackDto(
+data class ClientMyFeedbacksItem(
+    val client: Client,
     val id: Int,
     val rating: Double,
-    val client: FullNameClient,
-    val text: String,
+    val text: String
 )

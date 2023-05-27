@@ -94,7 +94,7 @@ class ProfileClientFragment : Fragment() {
             findNavController().navigate(R.id.editProfileClient)
         }
         btnMyFeedbacks.setOnClickListener {
-            findNavController().navigate(R.id.addFragment)
+            findNavController().navigate(R.id.myFeedbacksFragment)
         }
         btnAppSettings.setOnClickListener {
 

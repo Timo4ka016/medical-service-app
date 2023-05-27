@@ -1,6 +1,7 @@
 package dts.app.med_app_android.Service
 
 import dts.app.med_app_android.Model.ClientMainInfo
+import dts.app.med_app_android.Model.ClientMyFeedbacksItem
 import dts.app.med_app_android.Model.DoctorProfileInfoForClient
 import dts.app.med_app_android.Model.FeedbackDto
 import dts.app.med_app_android.Model.FeedbackModel
@@ -36,5 +37,8 @@ interface ClientService {
 
     @POST("api/client/feedback/create")
     fun createFeedback(@Query("adId") adId: Long, @Body feedback: FeedbackModel): Call<Void>
+
+    @GET("api/client/feedback/get-all")
+    fun getMyFeedbacks(): Call<List<ClientMyFeedbacksItem>>
 
 }

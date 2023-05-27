@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import dts.app.med_app_android.Adapter.ClientFeedbacksAdapter
-import dts.app.med_app_android.Adapter.DoctorAdsAdapter
+import dts.app.med_app_android.Adapter.ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter
 import dts.app.med_app_android.Model.DoctorProfileInfoForClient
 import dts.app.med_app_android.Retrofit.RetrofitClient
 import dts.app.med_app_android.Retrofit.TokenManager
@@ -22,7 +21,7 @@ class DoctorProfileDetailsFragment : Fragment() {
     private lateinit var binding: DoctorProfileDetailsBinding
     private lateinit var tokenManager: TokenManager
     private lateinit var clientService: ClientService
-    private lateinit var adapter: ClientFeedbacksAdapter
+    private lateinit var adapter: ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +31,7 @@ class DoctorProfileDetailsFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
         clientService = retrofit.create(ClientService::class.java)
-        adapter = ClientFeedbacksAdapter()
+        adapter = ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter()
         binding.rcFeedbacks.layoutManager = LinearLayoutManager(requireContext())
         binding.rcFeedbacks.adapter = adapter
         val doctorId = arguments?.getLong("doctorId")

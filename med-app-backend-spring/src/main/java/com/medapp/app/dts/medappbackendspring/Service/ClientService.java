@@ -171,11 +171,11 @@ public class ClientService {
 
     }
 
-    public List<Feedback> getMyFeedbacks(User user) {
+    public List<FeedbackDto> getMyFeedbacks(User user) {
         User myUser = userRepository.findById(user.getId())
                 .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
         List<Feedback> myFeedbacks = myUser.getGivenFeedbacks();
-        return myFeedbacks;
+        return myFeedbacks.stream().map(feedback -> mapper.map(feedback, FeedbackDto.class)).collect(Collectors.toList());
     }
 
     public void deleteFeedback(User user, Long feedbackId) {

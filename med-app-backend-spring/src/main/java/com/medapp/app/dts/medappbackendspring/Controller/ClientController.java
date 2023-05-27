@@ -57,8 +57,9 @@ public class ClientController {
     }
 
     @GetMapping("/feedback/get-all")
-    public ResponseEntity<List<Feedback>> getMyFeedbacks(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(clientService.getMyFeedbacks(user));
+    public ResponseEntity<List<FeedbackDto>> getMyFeedbacks(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok
+                (clientService.getMyFeedbacks(user));
     }
 
     @DeleteMapping("/feedback/delete")

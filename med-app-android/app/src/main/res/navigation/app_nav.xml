@@ -104,4 +104,9 @@
         android:name="dts.app.med_app_android.Fragment.DoctorProfileDetailsFragment"
         android:label="DoctorProfileDetailsFragment"
         tools:layout="@layout/doctor_profile_details"/>
+    <fragment
+        android:id="@+id/myFeedbacksFragment"
+        android:name="dts.app.med_app_android.Fragment.MyFeedbacksFragment"
+        android:label="fragment_my_feedbacks"
+        tools:layout="@layout/fragment_my_feedbacks" />
 </navigation>

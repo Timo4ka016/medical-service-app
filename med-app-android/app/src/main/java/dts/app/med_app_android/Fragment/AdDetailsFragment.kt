@@ -11,16 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import dts.app.med_app_android.Adapter.ClientFeedbacksAdapter
-import dts.app.med_app_android.Model.CreateAdRequest
-import dts.app.med_app_android.Model.FeedbackDto
+import dts.app.med_app_android.Adapter.ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter
 import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.R
@@ -33,7 +30,6 @@ import dts.app.med_app_android.databinding.AdDetailsBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 class AdDetailsFragment : Fragment() {
     private lateinit var binding: AdDetailsBinding
@@ -43,7 +39,7 @@ class AdDetailsFragment : Fragment() {
     private lateinit var clientService: ClientService
     private lateinit var confirmDelete: Dialog
     private lateinit var createFeedback: Dialog
-    private lateinit var adapter: ClientFeedbacksAdapter
+    private lateinit var adapter: ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +52,7 @@ class AdDetailsFragment : Fragment() {
         roleManager = RoleManager(requireContext())
         tokenManager = TokenManager(requireContext())
         val retrofit = RetrofitClient.getRetrofitClient(tokenManager)
-        adapter = ClientFeedbacksAdapter()
+        adapter = ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter()
         binding.rcFeedbacks.layoutManager = LinearLayoutManager(requireContext())
         binding.rcFeedbacks.adapter = adapter
         doctorService = retrofit.create(DoctorService::class.java)
