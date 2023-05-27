@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "dts.app.med_app_android"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"

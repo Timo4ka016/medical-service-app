@@ -1,8 +1,10 @@
 package dts.app.med_app_android.Fragment
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -70,6 +72,7 @@ class AdDetailsFragment : Fragment() {
                 "USER_CLIENT" -> {
                     getClientAdDetailInfo(adId)
                     setupClientButtons(adId)
+
                 }
             }
         }
@@ -110,6 +113,15 @@ class AdDetailsFragment : Fragment() {
             createFeedbackDialog(adId)
         }
         btnGoProfile.visibility = View.VISIBLE
+    }
+
+    private fun callNumber(number: String) = with(binding) {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:$number")
+            }
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            }
     }
 
     private fun createFeedbackDialog(adId: Long) {
@@ -241,6 +253,7 @@ class AdDetailsFragment : Fragment() {
                 response: Response<GetDoctorAdById>
             ) {
                 if (response.isSuccessful) {
+                    Log.i("Response Good", response.body().toString())
                     val adDto = response.body()
                     val rating = String.format("%.2f", adDto?.rating)
                     txtTitle.text = adDto?.title
@@ -254,7 +267,9 @@ class AdDetailsFragment : Fragment() {
                     txtPhoneNumber.text = adDto?.doctor?.phoneNumber
                     txtEmail.text = adDto?.doctor?.email
                     adapter.submitList(adDto?.doctor?.receivedFeedbacks)
-                    Log.i("Response Good", response.body().toString())
+                    btnLeft2.setOnClickListener {
+                        callNumber(adDto?.doctor?.phoneNumber.toString())
+                    }
                     btnGoProfile.setOnClickListener {
                         val doctorId = adDto?.doctor?.id
                         val bundle = Bundle()

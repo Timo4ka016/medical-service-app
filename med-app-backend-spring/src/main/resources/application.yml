@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/med-app-database
     username: postgres
-    password: postges
+    password: timo4ka
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
