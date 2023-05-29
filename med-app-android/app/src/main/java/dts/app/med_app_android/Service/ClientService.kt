@@ -41,4 +41,10 @@ interface ClientService {
     @GET("api/client/feedback/get-all")
     fun getMyFeedbacks(): Call<List<ClientMyFeedbacksItem>>
 
+    @DELETE("api/client/feedback/delete")
+    fun deleteFeedback(@Query("feedbackId") feedbackId: Long): Call<Void>
+
+    @PUT("api/client/feedback/update")
+    fun updateFeedback(@Query("feedbackId") feedbackId: Long, @Body feedback: FeedbackModel): Call<Void>
+
 }

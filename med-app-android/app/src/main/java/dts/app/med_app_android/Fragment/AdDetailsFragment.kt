@@ -209,9 +209,16 @@ class AdDetailsFragment : Fragment() {
             callCreateFeedback.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
+                        getDoctorAdDetailInfo(adId)
                         Toast.makeText(requireContext(), "Спасибо за отзыв", Toast.LENGTH_SHORT)
                             .show()
                         createFeedback.dismiss()
+                        Log.i("Response good", response.body().toString())
+                    } else {
+                        Log.i(
+                            "Response Error",
+                            "Failed to create feedback: ${response.code()} ${response.message()}"
+                        )
                     }
                 }
 
@@ -288,7 +295,5 @@ class AdDetailsFragment : Fragment() {
             }
         })
     }
-
-
 
 }

@@ -108,5 +108,9 @@
         android:id="@+id/myFeedbacksFragment"
         android:name="dts.app.med_app_android.Fragment.MyFeedbacksFragment"
         android:label="fragment_my_feedbacks"
-        tools:layout="@layout/fragment_my_feedbacks" />
+        tools:layout="@layout/fragment_my_feedbacks" >
+        <action
+            android:id="@+id/action_myFeedbacksFragment_to_doctorProfileDetailsFragment"
+            app:destination="@id/doctorProfileDetailsFragment" />
+    </fragment>
 </navigation>

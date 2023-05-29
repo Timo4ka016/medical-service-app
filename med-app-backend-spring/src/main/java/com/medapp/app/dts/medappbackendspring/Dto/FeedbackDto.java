@@ -16,5 +16,5 @@ public class FeedbackDto {
     private String text;
     private Double rating;
     private FullNameClient client;
-
+    private Long doctorId;
 }

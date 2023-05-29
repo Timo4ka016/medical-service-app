@@ -41,6 +41,8 @@
                 app:boxStrokeColor="@color/black"
                 app:endIconMode="clear_text"
                 app:hintEnabled="false"
+                app:counterEnabled="true"
+                app:counterMaxLength="255"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_1">
