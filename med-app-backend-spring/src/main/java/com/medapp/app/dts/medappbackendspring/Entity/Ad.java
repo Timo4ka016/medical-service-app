@@ -3,6 +3,8 @@ package com.medapp.app.dts.medappbackendspring.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +22,8 @@ public class Ad {
     private String city;
     private Double rating;
 
+    @OneToMany(mappedBy = "ad")
+    private Set<FavoriteAd> favoriteAds;
     @ManyToOne
     private User user;
     @ManyToOne

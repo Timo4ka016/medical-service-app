@@ -5,14 +5,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedbackDto {
+public class MyAppointmentsDto {
     private Long id;
-    private String text;
-    private Double rating;
+    private String message;
     private FullNameUser client;
-    private Long doctorId;
+    private FullNameUser doctor;
+    private AdInfo ad;
+    private LocalDateTime appointmentTime;
+    private Long desiredPrice;
+    private String status;
 }

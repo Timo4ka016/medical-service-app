@@ -155,9 +155,8 @@ class MyFeedbacksFragment : Fragment(), MyFeedbacksAdapter.OnDeleteClickListener
     }
 
 
-    override fun onButtonsClick(feedbackId: Long) {
+    override fun onDeleteClick(feedbackId: Long) {
         deleteMyFeedback(feedbackId)
-        updateFeedbackDialog(feedbackId)
     }
 
     override fun onFeedbackClick(doctorId: Long) {

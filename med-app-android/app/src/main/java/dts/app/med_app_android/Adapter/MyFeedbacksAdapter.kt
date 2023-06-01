@@ -25,7 +25,7 @@ class MyFeedbacksAdapter(
     }
 
     interface OnDeleteClickListener {
-        fun onButtonsClick(feedbackId: Long)
+        fun onDeleteClick(feedbackId: Long)
     }
 
     class Holder(
@@ -44,7 +44,7 @@ class MyFeedbacksAdapter(
 
             imgDelete.setOnClickListener {
                 val feedbackId = feedback.id
-                onDeleteClickListener.onButtonsClick(feedbackId.toLong())
+                onDeleteClickListener.onDeleteClick(feedbackId.toLong())
             }
 
             btnEdit.setOnClickListener {
@@ -92,7 +92,6 @@ class MyFeedbacksAdapter(
         if (position < feedbacksList.size) {
             val feedback = feedbacksList[position]
             holder.bind(feedback)
-
         }
     }
 }

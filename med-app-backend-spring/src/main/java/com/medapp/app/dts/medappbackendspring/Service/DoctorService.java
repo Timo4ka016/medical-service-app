@@ -2,6 +2,7 @@ package com.medapp.app.dts.medappbackendspring.Service;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.*;
+import com.medapp.app.dts.medappbackendspring.Enum.AppointmentStatus;
 import com.medapp.app.dts.medappbackendspring.Repository.*;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +32,8 @@ public class DoctorService {
     private FeedbackRepository feedbackRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     private final PasswordEncoder passwordEncoder;
     private static final ModelMapper mapper = new ModelMapper();
@@ -225,6 +229,51 @@ public class DoctorService {
 
     /*
      *  Конец сервиса города
+     * */
+
+    /*
+     *  Начало сервиса записи
+     * */
+
+    public List<MyAppointmentsDto> getReceivedAppointments(User doctor) {
+        List<Appointment> appointments = appointmentRepository.findByDoctor(doctor);
+        List<MyAppointmentsDto> appointmentsDto = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            MyAppointmentsDto appointmentDto = mapper.map(appointment, MyAppointmentsDto.class);
+            appointmentsDto.add(appointmentDto);
+        }
+
+        return appointmentsDto;
+    }
+
+    public void acceptAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Запись не найдена"));
+        appointment.setStatus(AppointmentStatus.ACCEPTED);
+        appointmentRepository.save(appointment);
+    }
+
+    public void rejectAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Запись не найдена"));
+        appointment.setStatus(AppointmentStatus.REJECTED);
+        appointmentRepository.save(appointment);
+    }
+
+    public List<MyAppointmentsDto> getMyAppointmentsByStatus(User client, AppointmentStatus status) {
+        List<Appointment> appointments = appointmentRepository.findByDoctorAndStatus(client, status);
+        List<MyAppointmentsDto> appointmentsDto = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            MyAppointmentsDto appointmentDto = mapper.map(appointment, MyAppointmentsDto.class);
+            appointmentsDto.add(appointmentDto);
+        }
+
+        return appointmentsDto;
+    }
+
+    /*
+     *  Конец сервиса записи
      * */
 
 }

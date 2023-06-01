@@ -3,6 +3,7 @@ package com.medapp.app.dts.medappbackendspring.Controller;
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
+import com.medapp.app.dts.medappbackendspring.Enum.AppointmentStatus;
 import com.medapp.app.dts.medappbackendspring.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,12 @@ public class DoctorController {
         doctorService.updateDoctor(user, request);
     }
 
-        @PutMapping("/category/add")
-        public void addCategoryToDoctor(
-                @AuthenticationPrincipal User user,
-                @RequestBody List<Long> categoryIds) {
-            doctorService.addCategoryToDoctor(user, categoryIds);
-        }
+    @PutMapping("/category/add")
+    public void addCategoryToDoctor(
+            @AuthenticationPrincipal User user,
+            @RequestBody List<Long> categoryIds) {
+        doctorService.addCategoryToDoctor(user, categoryIds);
+    }
 
     @PutMapping("/category/remove")
     public void removeCategoryToDoctor(
@@ -107,6 +108,27 @@ public class DoctorController {
             @RequestParam Long cityId
     ) {
         doctorService.addCityToDoctor(user, cityId);
+    }
+
+    @GetMapping("/ads/ad/appointment/get-all")
+    public ResponseEntity<List<MyAppointmentsDto>> getMyAppointments(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(doctorService.getReceivedAppointments(user));
+    }
+
+    @GetMapping("/ads/ad/appointment/get-status")
+    public ResponseEntity<List<MyAppointmentsDto>> getMyAppointmentsByStatus(@AuthenticationPrincipal User user,
+                                                                             @RequestParam AppointmentStatus status) {
+        return ResponseEntity.ok(doctorService.getMyAppointmentsByStatus(user, status   ));
+    }
+
+    @PutMapping("/ads/ad/appointment/accept")
+    public void acceptAppointment(@AuthenticationPrincipal User user, @RequestParam Long appointmentId) {
+        doctorService.acceptAppointment(appointmentId);
+    }
+
+    @PutMapping("/ads/ad/appointment/reject")
+    public void rejectAppointment(@AuthenticationPrincipal User user, @RequestParam Long appointmentId) {
+        doctorService.rejectAppointment(appointmentId);
     }
 
 }

@@ -3,7 +3,7 @@ package dts.app.med_app_android.Service
 import dts.app.med_app_android.Model.ClientMainInfo
 import dts.app.med_app_android.Model.ClientMyFeedbacksItem
 import dts.app.med_app_android.Model.DoctorProfileInfoForClient
-import dts.app.med_app_android.Model.FeedbackDto
+import dts.app.med_app_android.Model.FavoriteAdsDtoItem
 import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.Model.GetDoctorAdsItem
@@ -46,5 +46,14 @@ interface ClientService {
 
     @PUT("api/client/feedback/update")
     fun updateFeedback(@Query("feedbackId") feedbackId: Long, @Body feedback: FeedbackModel): Call<Void>
+
+    @GET("api/client/favorite/get-all")
+    fun getAllFavorite(): Call<List<FavoriteAdsDtoItem>>
+
+    @DELETE("api/client/favorite/delete")
+    fun deleteFavoriteAd(@Query("adId") adId: Long): Call<Void>
+
+    @POST("api/client/favorite/add")
+    fun addToFavorite(@Query("adId") adId: Long): Call<Void>
 
 }

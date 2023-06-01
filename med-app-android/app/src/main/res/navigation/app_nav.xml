@@ -113,4 +113,16 @@
             android:id="@+id/action_myFeedbacksFragment_to_doctorProfileDetailsFragment"
             app:destination="@id/doctorProfileDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="dts.app.med_app_android.Fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_doctorProfileDetailsFragment"
+            app:destination="@id/doctorProfileDetailsFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
 </navigation>

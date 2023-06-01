@@ -55,6 +55,7 @@ class AdDetailsFragment : Fragment() {
         adapter = ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter()
         binding.rcFeedbacks.layoutManager = LinearLayoutManager(requireContext())
         binding.rcFeedbacks.adapter = adapter
+        binding.rcFeedbacks.isNestedScrollingEnabled = false
         doctorService = retrofit.create(DoctorService::class.java)
         clientService = retrofit.create(ClientService::class.java)
         val adId = arguments?.getLong("adId", -1L) ?: -1L
@@ -80,6 +81,8 @@ class AdDetailsFragment : Fragment() {
     }
 
     private fun setupDoctorButtons(adId: Long) = with(binding) {
+        btnFeedbackDialog.visibility = View.GONE
+        btnGoProfile.visibility = View.GONE
         btnLeft2.text = getString(R.string.edit)
         btnLeft2.backgroundTintList = resources.getColorStateList(R.color.change_color)
         btnRight2.text = getString(R.string.delete)
@@ -108,16 +111,19 @@ class AdDetailsFragment : Fragment() {
         btnFeedbackDialog.setOnClickListener {
             createFeedbackDialog(adId)
         }
+        btnRight2.setOnClickListener {
+            addToFavorite(adId)
+        }
         btnGoProfile.visibility = View.VISIBLE
     }
 
     private fun callNumber(number: String) = with(binding) {
-            val intent = Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:$number")
-            }
-            if (intent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(intent)
-            }
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$number")
+        }
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        }
     }
 
     private fun createFeedbackDialog(adId: Long) {
@@ -209,10 +215,10 @@ class AdDetailsFragment : Fragment() {
             callCreateFeedback.enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
-                        getDoctorAdDetailInfo(adId)
                         Toast.makeText(requireContext(), "Спасибо за отзыв", Toast.LENGTH_SHORT)
                             .show()
                         createFeedback.dismiss()
+                        getDoctorAdDetailInfo(adId)
                         Log.i("Response good", response.body().toString())
                     } else {
                         Log.i(
@@ -292,6 +298,27 @@ class AdDetailsFragment : Fragment() {
 
             override fun onFailure(call: Call<GetDoctorAdById>, t: Throwable) {
                 Log.i("Response Error", "Failed to get ad details: ${t.message}")
+            }
+        })
+    }
+
+    private fun addToFavorite(adId: Long) = with(binding) {
+        val callAddToFavorite = clientService.addToFavorite(adId)
+        callAddToFavorite.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.i("Response Good", response.body().toString())
+                    Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.i(
+                        "Response Error",
+                        "Failed to add ad to favorite: ${response.code()} ${response.message()}"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.i("Response Error", "Failed to add ad to favorite: ${t.message}")
             }
         })
     }

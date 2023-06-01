@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FullNameClient {
+public class FavoriteAdDto {
     private Long id;
-    private String firstname;
-    private String lastname;
+    private AdShortInfo ad;
 }

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                         if (role != null) {
                             when (role) {
                                 "USER_CLIENT" -> {
-                                    navController.navigate(R.id.adDetailsFragment)
+                                    navController.navigate(R.id.favoriteFragment)
 
                                 }
                                 "USER_DOCTOR" -> {

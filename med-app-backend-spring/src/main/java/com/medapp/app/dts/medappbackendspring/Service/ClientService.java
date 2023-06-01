@@ -2,11 +2,9 @@ package com.medapp.app.dts.medappbackendspring.Service;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
 import com.medapp.app.dts.medappbackendspring.Entity.*;
+import com.medapp.app.dts.medappbackendspring.Enum.AppointmentStatus;
 import com.medapp.app.dts.medappbackendspring.Enum.Role;
-import com.medapp.app.dts.medappbackendspring.Repository.AdRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.CityRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.FeedbackRepository;
-import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
+import com.medapp.app.dts.medappbackendspring.Repository.*;
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +16,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +33,10 @@ public class ClientService {
     private FeedbackRepository feedbackRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private FavoriteAdRepository favoriteAdRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -263,18 +267,140 @@ public class ClientService {
 
     public List<GetDoctorAds> getAdByCategory(User user, Long categoryId) {
         List<Ad> ads = adRepository.findByCategoryId(categoryId);
-        return  ads.stream().map(ad -> {
-            GetDoctorAds doctorAd = mapper.map(ad, GetDoctorAds.class);
-            DoctorMainInfo doctorInfo = mapper.map(ad.getUser(), DoctorMainInfo.class);
-            doctorAd.setDoctor(doctorInfo);
-            doctorAd.setCategory(ad.getCategory().getName());
-            return doctorAd;
-        })
+        return ads.stream().map(ad -> {
+                    GetDoctorAds doctorAd = mapper.map(ad, GetDoctorAds.class);
+                    DoctorMainInfo doctorInfo = mapper.map(ad.getUser(), DoctorMainInfo.class);
+                    doctorAd.setDoctor(doctorInfo);
+                    doctorAd.setCategory(ad.getCategory().getName());
+                    return doctorAd;
+                })
                 .collect(Collectors.toList());
     }
 
     /*
      *  Конец сервиса объявлений
+     * */
+
+    /*
+     *  Начало сервиса избранного
+     * */
+
+    public void addToFavorite(User user, Long adId) {
+        User currentUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        Ad ad = adRepository.findById(adId)
+                .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
+        FavoriteAd favoriteAd = FavoriteAd.builder()
+                .user(currentUser)
+                .ad(ad)
+                .build();
+        favoriteAdRepository.save(favoriteAd);
+    }
+
+    public void removeFromFavorite(User user, Long adId) {
+        User currentUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        Ad ad = adRepository.findById(adId)
+                .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
+        FavoriteAd favoriteAd = favoriteAdRepository.findByUserAndAd(currentUser, ad);
+        if (favoriteAd != null) {
+            favoriteAdRepository.delete(favoriteAd);
+        } else {
+            throw new NotFoundException("Объявление не найдено в списке избранного");
+        }
+    }
+
+    public List<FavoriteAdDto> getAllFavorite(User user) {
+        List<FavoriteAd> favoriteAds = favoriteAdRepository.findByUser(user);
+        return favoriteAds.stream()
+                .map(favoriteAd -> {
+                    FavoriteAdDto favoriteAdDto = mapper.map(favoriteAd, FavoriteAdDto.class);
+                    Ad ad = favoriteAd.getAd();
+                    AdShortInfo adShortInfo = mapper.map(ad, AdShortInfo.class);
+                    User adUser = ad.getUser();
+                    FullNameUser fullNameUser = mapper.map(adUser, FullNameUser.class);
+                    adShortInfo.setDoctor(fullNameUser);
+                    favoriteAdDto.setAd(adShortInfo);
+                    return favoriteAdDto;
+                })
+                .collect(Collectors.toList());
+    }
+
+
+    /*
+     *  Конец сервиса избранного
+     * */
+
+    /*
+     *  Начало сервиса записи
+     * */
+
+    public void createAppointment(User user, Long adId, CreateAppointmentDto body) {
+        User currentUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден"));
+        Ad ad = adRepository.findById(adId)
+                .orElseThrow(() -> new NotFoundException("Объявление не найдено"));
+        Appointment appointment = Appointment.builder()
+                .client(currentUser)
+                .doctor(ad.getUser())
+                .ad(ad)
+                .message(body.getMessage())
+                .appointmentTime(body.getAppointmentTime())
+                .desiredPrice(body.getDesiredPrice())
+                .status(AppointmentStatus.PENDING)
+                .build();
+        appointmentRepository.save(appointment);
+    }
+
+    public void updateAppointment(User user, Long appointmentId, CreateAppointmentDto body) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Запись не найдена"));
+        if (body.getMessage() != null && !body.getMessage().trim().isEmpty()) {
+            appointment.setMessage(body.getMessage().trim());
+        }
+        if (body.getAppointmentTime() != null) {
+            appointment.setAppointmentTime(body.getAppointmentTime());
+        }
+        if (body.getDesiredPrice() != null) {
+            appointment.setDesiredPrice(body.getDesiredPrice());
+        }
+        appointmentRepository.save(appointment);
+    }
+
+    public void deleteAppointment(User user, Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new NotFoundException("Запись не найдена"));
+        if (!appointment.getClient().getId().equals(user.getId())) {
+            throw new AccessDeniedException("You are not authorized to delete this appointment");
+        }
+        appointmentRepository.delete(appointment);
+    }
+
+    public List<MyAppointmentsDto> getMyAppointments(User client) {
+        List<Appointment> appointments = appointmentRepository.findByClient(client);
+        List<MyAppointmentsDto> appointmentsDto = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            MyAppointmentsDto appointmentDto = mapper.map(appointment, MyAppointmentsDto.class);
+            appointmentsDto.add(appointmentDto);
+        }
+
+        return appointmentsDto;
+    }
+
+    public List<MyAppointmentsDto> getMyAppointmentsByStatus(User client, AppointmentStatus status) {
+        List<Appointment> appointments = appointmentRepository.findByClientAndStatus(client, status);
+        List<MyAppointmentsDto> appointmentsDto = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            MyAppointmentsDto appointmentDto = mapper.map(appointment, MyAppointmentsDto.class);
+            appointmentsDto.add(appointmentDto);
+        }
+
+        return appointmentsDto;
+    }
+
+    /*
+     *  Конец сервиса записи
      * */
 
 

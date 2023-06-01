@@ -1,9 +1,11 @@
 package com.medapp.app.dts.medappbackendspring.Controller;
 
 import com.medapp.app.dts.medappbackendspring.Dto.*;
+import com.medapp.app.dts.medappbackendspring.Entity.Appointment;
 import com.medapp.app.dts.medappbackendspring.Entity.Feedback;
 import com.medapp.app.dts.medappbackendspring.Entity.NotFoundException;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
+import com.medapp.app.dts.medappbackendspring.Enum.AppointmentStatus;
 import com.medapp.app.dts.medappbackendspring.Repository.UserRepository;
 import com.medapp.app.dts.medappbackendspring.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +115,54 @@ public class ClientController {
             @RequestParam Long adId
     ) {
         return ResponseEntity.ok(clientService.getAdById(user, adId));
+    }
+
+    @PostMapping("/favorite/add")
+    public void addToFavorite(@AuthenticationPrincipal User user,
+                              @RequestParam Long adId) {
+        clientService.addToFavorite(user, adId);
+    }
+
+    @DeleteMapping("/favorite/delete")
+    public void deleteFavoriteAd(@AuthenticationPrincipal User user,
+                                 @RequestParam Long adId) {
+        clientService.removeFromFavorite(user, adId);
+    }
+
+    @GetMapping("/favorite/get-all")
+    public ResponseEntity<List<FavoriteAdDto>> getAllFavorite(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(clientService.getAllFavorite(user));
+    }
+
+    @PostMapping("/ads/ad/appointment/create")
+    public void createAppointment(@AuthenticationPrincipal User user,
+                                  @RequestParam Long adId,
+                                  @RequestBody CreateAppointmentDto body) {
+        clientService.createAppointment(user, adId, body);
+    }
+
+    @PutMapping("/ads/ad/appointment/update")
+    public void updateAppointment(@AuthenticationPrincipal User user,
+                                  @RequestParam Long appointmentId,
+                                  @RequestBody CreateAppointmentDto body) {
+        clientService.updateAppointment(user, appointmentId, body);
+    }
+
+    @DeleteMapping("/ads/ad/appointment/delete")
+    public void deleteAppointment(@AuthenticationPrincipal User user,
+                                  @RequestParam Long appointmentId) {
+        clientService.deleteAppointment(user, appointmentId);
+    }
+
+    @GetMapping("/ads/ad/appointment/get-all")
+    public ResponseEntity<List<MyAppointmentsDto>> getMyAppointments(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(clientService.getMyAppointments(user));
+    }
+
+    @GetMapping("/ads/ad/appointment/get-status")
+    public ResponseEntity<List<MyAppointmentsDto>> getMyAppointmentsByStatus(@AuthenticationPrincipal User user,
+                                                                             @RequestParam AppointmentStatus status) {
+        return ResponseEntity.ok(clientService.getMyAppointmentsByStatus(user, status));
     }
 
 }

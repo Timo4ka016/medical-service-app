@@ -46,6 +46,9 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
+    @OneToMany(mappedBy = "user")
+    private Set<FavoriteAd> favoriteAds;
+
     @OneToMany(mappedBy = "client")
     private List<Feedback> givenFeedbacks;
 

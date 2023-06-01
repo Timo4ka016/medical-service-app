@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedbackDto {
+public class FullNameUser {
     private Long id;
-    private String text;
-    private Double rating;
-    private FullNameUser client;
-    private Long doctorId;
+    private String firstname;
+    private String lastname;
 }
