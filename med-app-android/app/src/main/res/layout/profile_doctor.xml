@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_edit_profile" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_app_settings"
+        android:id="@+id/btn_received_appointments"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="10dp"
@@ -115,7 +115,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/accept_color"
         android:drawableRight="@drawable/ic_right"
-        android:text="@string/app_settings"
+        android:text="Полученные записи"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -146,7 +146,7 @@
         app:iconPadding="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_app_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_received_appointments" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_log_out"

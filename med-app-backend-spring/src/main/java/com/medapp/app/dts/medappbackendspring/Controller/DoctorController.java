@@ -117,8 +117,8 @@ public class DoctorController {
 
     @GetMapping("/ads/ad/appointment/get-status")
     public ResponseEntity<List<MyAppointmentsDto>> getMyAppointmentsByStatus(@AuthenticationPrincipal User user,
-                                                                             @RequestParam AppointmentStatus status) {
-        return ResponseEntity.ok(doctorService.getMyAppointmentsByStatus(user, status   ));
+                                                                             @RequestParam(defaultValue = "PENDING") AppointmentStatus status) {
+        return ResponseEntity.ok(doctorService.getMyAppointmentsByStatus(user, status));
     }
 
     @PutMapping("/ads/ad/appointment/accept")

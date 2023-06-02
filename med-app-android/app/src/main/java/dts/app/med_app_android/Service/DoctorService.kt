@@ -40,4 +40,10 @@ interface DoctorService {
 
     @GET("api/doctor/profile")
     fun profileDoctor(): Call<DoctorMainInfo>
+
+    @PUT("api/doctor/ads/ad/appointment/accept")
+    fun acceptAppointment(@Query("appointmentId") appointmentId: Long): Call<Void>
+
+    @GET("api/doctor/ads/ad/appointment/get-all")
+    fun getMyAppointments(): Call<List<MyAppointmentsDtoItem>>
 }

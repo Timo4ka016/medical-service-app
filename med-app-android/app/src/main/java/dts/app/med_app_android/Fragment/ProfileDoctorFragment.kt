@@ -63,7 +63,8 @@ class ProfileDoctorFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<DoctorMainInfo>, t: Throwable) {
-                Log.i("Response Error", "Failed to load doctor info: ${t.message}")            }
+                Log.i("Response Error", "Failed to load doctor info: ${t.message}")
+            }
         })
     }
 
@@ -82,6 +83,7 @@ class ProfileDoctorFragment : Fragment() {
                     )
                 }
             }
+
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.i("Response Error", "Failed to logout user: ${t.message}")
             }
@@ -96,8 +98,8 @@ class ProfileDoctorFragment : Fragment() {
         btnMyAds.setOnClickListener {
             findNavController().navigate(R.id.doctorAdsFragment)
         }
-        btnAppSettings.setOnClickListener {
-
+        btnReceivedAppointments.setOnClickListener {
+            findNavController().navigate(R.id.received_Appointments)
         }
         btnFaq.setOnClickListener {
 

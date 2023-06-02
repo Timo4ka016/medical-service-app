@@ -125,4 +125,9 @@
             android:id="@+id/action_favoriteFragment_to_adDetailsFragment"
             app:destination="@id/adDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/received_Appointments"
+        android:name="dts.app.med_app_android.Fragment.ReceivedAppointmentsFragment"
+        android:label="fragment_received__appointments"
+        tools:layout="@layout/fragment_received_appointments" />
 </navigation>
