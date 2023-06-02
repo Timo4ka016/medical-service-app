@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -160,12 +161,13 @@ public class DoctorService {
         ad.setCategory(category);
         adRepository.save(ad);
     }
-
+    @Transactional
     public void deleteAd(User user, Long adId) {
         Ad ad = adRepository.findById(adId).orElseThrow(() -> new NotFoundException("Ad not found"));
         if (!ad.getUser().getId().equals(user.getId())) {
             throw new AccessDeniedException("You are not authorized to delete this ad");
         }
+        appointmentRepository.deleteByAd(ad);
         adRepository.delete(ad);
     }
 
@@ -202,12 +204,11 @@ public class DoctorService {
      *  Начало сервиса отзывов
      * */
 
-    public List<Feedback> getMyFeedback(User user, Double rating) {
-        Specification<Feedback> spec = Specification.where((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("doctor"), user));
-        if (rating != null) {
-            spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("rating"), rating));
-        }
-        return feedbackRepository.findAll(spec);
+    public List<FeedbackDto> getMyFeedback(User user) {
+        User myUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new NotFoundException("Пользователь не найден."));
+        List<Feedback> myFeedbacks = myUser.getReceivedFeedbacks();
+        return myFeedbacks.stream().map(feedback -> mapper.map(feedback, FeedbackDto.class)).collect(Collectors.toList());
     }
 
     /*

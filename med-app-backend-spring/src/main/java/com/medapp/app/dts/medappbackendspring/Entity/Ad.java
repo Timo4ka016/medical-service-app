@@ -22,7 +22,7 @@ public class Ad {
     private String city;
     private Double rating;
 
-    @OneToMany(mappedBy = "ad")
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FavoriteAd> favoriteAds;
     @ManyToOne
     private User user;

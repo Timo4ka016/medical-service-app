@@ -96,10 +96,6 @@
         android:label="UpdateAdFragment"
         tools:layout="@layout/update_ad"/>
     <fragment
-        android:id="@+id/clientFeedbacksFragment"
-        android:name="dts.app.med_app_android.Fragment.ClientFeedbacksFragment"
-        android:label="ClientFeedbacksFragment" />
-    <fragment
         android:id="@+id/doctorProfileDetailsFragment"
         android:name="dts.app.med_app_android.Fragment.DoctorProfileDetailsFragment"
         android:label="DoctorProfileDetailsFragment"
@@ -129,5 +125,9 @@
         android:id="@+id/received_Appointments"
         android:name="dts.app.med_app_android.Fragment.ReceivedAppointmentsFragment"
         android:label="fragment_received__appointments"
-        tools:layout="@layout/fragment_received_appointments" />
+        tools:layout="@layout/fragment_received_appointments" >
+        <action
+            android:id="@+id/action_received_Appointments_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
 </navigation>

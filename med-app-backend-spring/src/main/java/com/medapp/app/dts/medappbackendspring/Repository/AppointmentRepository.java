@@ -1,5 +1,6 @@
 package com.medapp.app.dts.medappbackendspring.Repository;
 
+import com.medapp.app.dts.medappbackendspring.Entity.Ad;
 import com.medapp.app.dts.medappbackendspring.Entity.Appointment;
 import com.medapp.app.dts.medappbackendspring.Entity.User;
 import com.medapp.app.dts.medappbackendspring.Enum.AppointmentStatus;
@@ -18,4 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByDoctor(User doctor);
 
     List<Appointment> findByDoctorAndStatus(User client, AppointmentStatus status);
+
+    void deleteByAd(Ad ad);
 }

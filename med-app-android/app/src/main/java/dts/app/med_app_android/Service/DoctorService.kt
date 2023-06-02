@@ -44,6 +44,15 @@ interface DoctorService {
     @PUT("api/doctor/ads/ad/appointment/accept")
     fun acceptAppointment(@Query("appointmentId") appointmentId: Long): Call<Void>
 
+    @PUT("api/doctor/ads/ad/appointment/reject")
+    fun rejectAppointment(@Query("appointmentId") appointmentId: Long): Call<Void>
+
     @GET("api/doctor/ads/ad/appointment/get-all")
     fun getMyAppointments(): Call<List<MyAppointmentsDtoItem>>
+
+    @GET("api/doctor/ads/ad/appointment/get-status")
+    fun getMyAppointmentsByStatus(@Query("status") status: String): Call<List<MyAppointmentsDtoItem>>
+
+    @GET("api/doctor/feedbacks")
+    fun getMyFeedbacks(): Call<List<ClientMyFeedbacksItem>>
 }

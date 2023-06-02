@@ -12,17 +12,48 @@ import dts.app.med_app_android.Model.MyAppointmentsDtoItem
 import dts.app.med_app_android.R
 import dts.app.med_app_android.databinding.ReceivedAppointmentCardBinding
 
-class AppointmentsAdapter(private val onAcceptClickListener: OnAcceptClickListener) :
+class AppointmentsAdapter(
+    private val onAcceptClickListener: OnAcceptClickListener,
+    private val onRejectClickListener: OnRejectClickListener,
+    private val onClickListener: OnClickListener
+) :
     ListAdapter<MyAppointmentsDtoItem, AppointmentsAdapter.Holder>(Comparator()) {
+
+    interface OnClickListener {
+        fun onClick(adId: Long)
+    }
 
     interface OnAcceptClickListener {
         fun onAcceptClick(appointmentId: Long)
     }
 
-    class Holder(view: View, private val onAcceptClickListener: OnAcceptClickListener) : RecyclerView.ViewHolder(view) {
+    interface OnRejectClickListener {
+        fun onRejectClick(appointmentId: Long)
+    }
+
+    class Holder(
+        view: View,
+        private val onAcceptClickListener: OnAcceptClickListener,
+        private val onRejectClickListener: OnRejectClickListener,
+        private val onClickListener: OnClickListener
+    ) : RecyclerView.ViewHolder(view) {
         private val binding = ReceivedAppointmentCardBinding.bind(view)
 
         fun bind(appointment: MyAppointmentsDtoItem) = with(binding) {
+            when (appointment.status) {
+                "PENDING" -> {
+                    btnAccept.visibility = View.VISIBLE
+                    btnReject.visibility = View.VISIBLE
+                }
+                "ACCEPTED" -> {
+                    btnAccept.visibility = View.GONE
+                    btnReject.visibility = View.GONE
+                }
+                "REJECTED" -> {
+                    btnAccept.visibility = View.GONE
+                    btnReject.visibility = View.GONE
+                }
+            }
             txtTitle.text = appointment.ad.title
             txtName.text = "Имя: " + appointment.doctor.firstname + appointment.doctor.lastname
             txtAddress.text = "Адресс: " + appointment.ad.address
@@ -34,6 +65,20 @@ class AppointmentsAdapter(private val onAcceptClickListener: OnAcceptClickListen
             btnAccept.setOnClickListener {
                 val appointmentId = appointment.id
                 onAcceptClickListener.onAcceptClick(appointmentId)
+            }
+
+            btnReject.setOnClickListener {
+                val appointmentId = appointment.id
+                onRejectClickListener.onRejectClick(appointmentId)
+                btnAccept.visibility = View.GONE
+                btnReject.visibility = View.GONE
+            }
+
+            itemView.setOnClickListener {
+                val adId = appointment.ad.id
+                onClickListener.onClick(adId)
+                btnAccept.visibility = View.GONE
+                btnReject.visibility = View.GONE
             }
 
         }
@@ -62,8 +107,9 @@ class AppointmentsAdapter(private val onAcceptClickListener: OnAcceptClickListen
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.received_appointment_card, parent, false)
-        return AppointmentsAdapter.Holder(view, onAcceptClickListener)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.received_appointment_card, parent, false)
+        return AppointmentsAdapter.Holder(view, onAcceptClickListener, onRejectClickListener, onClickListener)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

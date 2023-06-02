@@ -95,11 +95,10 @@ public class DoctorController {
     }
 
     @GetMapping("/feedbacks")
-    public ResponseEntity<List<Feedback>> getMyFeedbacks(
-            @AuthenticationPrincipal User user,
-            @RequestParam(required = false) Double rating
+    public ResponseEntity<List<FeedbackDto>> getMyFeedbacks(
+            @AuthenticationPrincipal User user
     ) {
-        return ResponseEntity.ok(doctorService.getMyFeedback(user, rating));
+        return ResponseEntity.ok(doctorService.getMyFeedback(user));
     }
 
     @PutMapping("/city/add")
