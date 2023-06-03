@@ -27,7 +27,7 @@
                 android:id="@+id/constraint_doctor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,7 @@
                                 android:src="@drawable/ic_appointment" />
 
                             <TextView
-                                android:id="@+id/txt2"
+                                android:id="@+id/txt3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -175,6 +175,37 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <LinearLayout
+                            android:id="@+id/linear_feedback_empty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_feedbacks">
+
+                            <ImageView
+                                android:id="@+id/img3"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginBottom="15dp"
+                                android:src="@drawable/ic_feedback" />
+
+                            <TextView
+                                android:id="@+id/txt4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:text="Отзывов нет"
+                                android:textAlignment="center"
+                                android:textColor="@color/txt_color_1"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rc_feedback"
@@ -198,12 +229,11 @@
                 android:id="@+id/constraint_user"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/txt_categories"
@@ -283,7 +313,7 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/categories_corner"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/category_dentist"
+                                    android:src="@drawable/category_ent"
                                     android:tint="#80000000" />
 
                                 <TextView
@@ -316,7 +346,7 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/categories_corner"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/category_dentist"
+                                    android:src="@drawable/category_dermotolog"
                                     android:tint="#80000000" />
 
                                 <TextView
@@ -349,7 +379,7 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/categories_corner"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/category_dentist"
+                                    android:src="@drawable/category_oculist"
                                     android:tint="#80000000" />
 
                                 <TextView
@@ -357,7 +387,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
-                                    android:text="@string/neurologist"
+                                    android:text="@string/oculist"
                                     android:textColor="@color/white"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -382,7 +412,7 @@
                                     android:adjustViewBounds="true"
                                     android:background="@drawable/categories_corner"
                                     android:scaleType="centerCrop"
-                                    android:src="@drawable/category_dentist"
+                                    android:src="@drawable/category_neurologist"
                                     android:tint="#80000000" />
 
                                 <TextView
@@ -390,7 +420,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
-                                    android:text="@string/oculist"
+                                    android:text="@string/neurologist"
                                     android:textColor="@color/white"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />

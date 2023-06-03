@@ -345,7 +345,6 @@ public class ClientService {
                 .doctor(ad.getUser())
                 .ad(ad)
                 .message(body.getMessage())
-                .appointmentTime(body.getAppointmentTime())
                 .desiredPrice(body.getDesiredPrice())
                 .status(AppointmentStatus.PENDING)
                 .build();
@@ -357,9 +356,6 @@ public class ClientService {
                 .orElseThrow(() -> new NotFoundException("Запись не найдена"));
         if (body.getMessage() != null && !body.getMessage().trim().isEmpty()) {
             appointment.setMessage(body.getMessage().trim());
-        }
-        if (body.getAppointmentTime() != null) {
-            appointment.setAppointmentTime(body.getAppointmentTime());
         }
         if (body.getDesiredPrice() != null) {
             appointment.setDesiredPrice(body.getDesiredPrice());

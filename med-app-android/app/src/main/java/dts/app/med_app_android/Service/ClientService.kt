@@ -2,11 +2,13 @@ package dts.app.med_app_android.Service
 
 import dts.app.med_app_android.Model.ClientMainInfo
 import dts.app.med_app_android.Model.ClientMyFeedbacksItem
+import dts.app.med_app_android.Model.CreateAppointmentDto
 import dts.app.med_app_android.Model.DoctorProfileInfoForClient
 import dts.app.med_app_android.Model.FavoriteAdsDtoItem
 import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.Model.GetDoctorAdsItem
+import dts.app.med_app_android.Model.MyAppointmentsDtoItem
 import dts.app.med_app_android.Model.UpdateClientRequest
 import retrofit2.Call
 import retrofit2.http.*
@@ -55,5 +57,11 @@ interface ClientService {
 
     @POST("api/client/favorite/add")
     fun addToFavorite(@Query("adId") adId: Long): Call<Void>
+
+    @POST("api/client/ads/ad/appointment/create")
+    fun createAppointment(@Query("adId") adId: Long, @Body body: CreateAppointmentDto): Call<Void>
+
+    @GET("api/client/ads/ad/appointment/get-status")
+    fun getMyAppointmentsByStatus(@Query("status") status: String): Call<List<MyAppointmentsDtoItem>>
 
 }

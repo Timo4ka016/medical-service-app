@@ -25,8 +25,6 @@ public class Appointment {
     private User client;
     @ManyToOne
     private Ad ad;
-    @Column(columnDefinition = "TIMESTAMP")
-    private LocalDateTime appointmentTime;
     private Long desiredPrice;
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;

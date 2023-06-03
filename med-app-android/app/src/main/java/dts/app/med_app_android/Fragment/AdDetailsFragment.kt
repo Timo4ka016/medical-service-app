@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import dts.app.med_app_android.Adapter.ClientFeedbacksOnAdDetailsAndDoctorProfileAdapter
+import dts.app.med_app_android.Model.CreateAdRequest
+import dts.app.med_app_android.Model.CreateAppointmentDto
 import dts.app.med_app_android.Model.FeedbackModel
 import dts.app.med_app_android.Model.GetDoctorAdById
 import dts.app.med_app_android.R
@@ -69,7 +71,7 @@ class AdDetailsFragment : Fragment() {
                 "USER_CLIENT" -> {
                     getClientAdDetailInfo(adId)
                     setupClientButtons(adId)
-
+                    createAppointment(adId)
                 }
             }
         }
@@ -97,6 +99,47 @@ class AdDetailsFragment : Fragment() {
         }
         btnRight2.setOnClickListener {
             confirmDeleteDialog(adId)
+        }
+        cardAppointment.visibility = View.GONE
+
+    }
+
+    private fun createAppointment(adId: Long) = with(binding) {
+        btnAppointmentSubmit.setOnClickListener {
+            val body = createAppointmentBody() ?: return@setOnClickListener
+            val callCreateAppointment =
+                clientService.createAppointment(adId, body)
+            callCreateAppointment.enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        Log.i("Response Good", body.message + " | " + body.desiredPrice)
+                        Toast.makeText(requireContext(), "Заявка отправлена", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        Log.i("Response Error", "Er")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
+
+    private fun createAppointmentBody(): CreateAppointmentDto? {
+        val message = binding.inputMessage.text?.trim().toString()
+        val clientPrice = binding.inputClientPrice.text?.trim().toString()
+
+        if (message.isEmpty() || clientPrice.isEmpty()) {
+            Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+            return null
+        } else {
+            val price: Long? = clientPrice.toLongOrNull()
+            return CreateAppointmentDto(
+                message = message,
+                desiredPrice = price ?: 0L
+            )
         }
     }
 
@@ -308,7 +351,8 @@ class AdDetailsFragment : Fragment() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     Log.i("Response Good", response.body().toString())
-                    Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Добавлено в избранное", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     Log.i(
                         "Response Error",

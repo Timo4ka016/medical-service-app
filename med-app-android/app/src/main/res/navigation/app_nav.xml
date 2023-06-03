@@ -123,11 +123,19 @@
     </fragment>
     <fragment
         android:id="@+id/received_Appointments"
-        android:name="dts.app.med_app_android.Fragment.ReceivedAppointmentsFragment"
+        android:name="dts.app.med_app_android.Fragment.DoctorReceivedAppointmentsFragment"
         android:label="fragment_received__appointments"
         tools:layout="@layout/fragment_received_appointments" >
         <action
             android:id="@+id/action_received_Appointments_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mySentAppointmentFragment"
+        android:name="dts.app.med_app_android.Fragment.MySentAppointmentFragment"
+        android:label="MySentAppointmentFragment" >
+        <action
+            android:id="@+id/action_mySentAppointmentFragment_to_adDetailsFragment"
             app:destination="@id/adDetailsFragment" />
     </fragment>
 </navigation>

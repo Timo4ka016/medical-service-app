@@ -72,7 +72,8 @@ class MyFeedbacksFragment : Fragment(), MyFeedbacksAdapter.OnDeleteClickListener
             }
 
             override fun onFailure(call: Call<List<ClientMyFeedbacksItem>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.i("Response error", t.message.toString())
+
             }
         })
     }

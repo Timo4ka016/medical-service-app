@@ -123,15 +123,22 @@ class HomeFragment : Fragment(), DoctorAdsAdapter.OnAdClickListener,
 
     private fun getMyFeedbacks() = with(binding) {
         val callGetMyFeedbacks = doctorService.getMyFeedbacks()
-        callGetMyFeedbacks.enqueue(object: Callback<List<ClientMyFeedbacksItem>> {
+        callGetMyFeedbacks.enqueue(object : Callback<List<ClientMyFeedbacksItem>> {
             override fun onResponse(
                 call: Call<List<ClientMyFeedbacksItem>>,
                 response: Response<List<ClientMyFeedbacksItem>>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     val feedbacks = response.body()
-                    Log.i("Response feedback good", response.body().toString())
-                    feedbacksAdapter.submitList(feedbacks)
+                    if (feedbacks.isNullOrEmpty()) {
+                        linearFeedbackEmpty.visibility = View.VISIBLE
+                        feedbacksAdapter.submitList(feedbacks)
+                    } else {
+                        linearFeedbackEmpty.visibility = View.GONE
+                        Log.i("Response feedback good", response.body().toString())
+                        feedbacksAdapter.submitList(feedbacks)
+                    }
+
                 } else {
                     Log.i("Response feedback bad", response.body().toString())
                 }
@@ -253,10 +260,9 @@ class HomeFragment : Fragment(), DoctorAdsAdapter.OnAdClickListener,
 
 
     override fun onAdClick(adId: Long) {
-        val bundle = Bundle()
-        bundle.putLong("adId", adId)
-
-        findNavController().navigate(R.id.action_homeFragment_to_adDetailsFragment, bundle)
+        val bundle2 = Bundle()
+        bundle2.putLong("adId", adId)
+        findNavController().navigate(R.id.action_homeFragment_to_adDetailsFragment, bundle2)
     }
 
     override fun onClick(adId: Long) {

@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dts.app.med_app_android.Fragment.ReceivedAppointmentsFragment
-import dts.app.med_app_android.Model.FavoriteAdsDtoItem
 import dts.app.med_app_android.Model.MyAppointmentsDtoItem
 import dts.app.med_app_android.R
 import dts.app.med_app_android.databinding.ReceivedAppointmentCardBinding

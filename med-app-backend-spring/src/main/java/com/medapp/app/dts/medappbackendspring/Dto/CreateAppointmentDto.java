@@ -12,6 +12,5 @@ import java.time.LocalDateTime;
 @Builder
 public class CreateAppointmentDto {
     private String message;
-    private LocalDateTime appointmentTime;
     private Long desiredPrice;
 }
